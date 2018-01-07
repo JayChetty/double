@@ -55,3 +55,32 @@ button {
 .test {
   background-color: #222;
 }
+
+.mover {
+  animation: Square-move 1s;
+  animation-fill-mode: forwards;
+}
+
+/*.leftCube {
+  animation: Square-left 1s;
+  animation-fill-mode: forwards;
+}*/
+
+@keyframes Square-move {
+  from {
+  }
+  to {
+    transform: translate(5px, -5px);
+  }
+}
+
+@keyframes Square-left {
+  from {
+    /*transform: translate(-5px, +5px);
+    opacity: 0;*/
+    height: 0px;
+  }
+  to {
+    height: auto;
+  }
+}
