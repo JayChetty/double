@@ -6,7 +6,7 @@ const offsetY = 10;
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { target: 12, number: 1, moves: 0 };
+    this.state = { target: 8, number: 1, moves: 0 };
     this.addOne = this.addOne.bind(this);
     this.removeOne = this.removeOne.bind(this);
     this.double = this.double.bind(this);
@@ -17,9 +17,12 @@ class App extends Component {
 
   createSquares(number, target) {
     return this.sequanceArray(100).map(squareNumber => {
-      let className = null;
+      let className = "";
       if (number > squareNumber) {
         className = "action";
+      }
+      if (number === target) {
+        className = className + " completed";
       }
       const size = 20;
       const margin = 8;
