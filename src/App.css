@@ -86,17 +86,19 @@ circle {
   transform-origin: center;
 }
 
-/*text {
-  animation: Square-Change 1 0.6s linear;
+text {
+  animation: Text-appear 1 0.6s ease;
   animation-fill-mode: forwards;
-  transform-origin: center;
-}*/
+}
 
 @keyframes Text-appear {
   0% {
-    opacity: 0%;
+    fill: #eeeeee;
+  }
+  50% {
+    fill: #993456;
   }
   100% {
-    opacity: 100%;
+    fill: #f4e6cb;
   }
 }

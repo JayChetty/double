@@ -3,10 +3,23 @@ import "./App.css";
 
 const offsetX = 10;
 const offsetY = 10;
+
+const levels = [
+  { target: 2, allowedMoves: 1 },
+  { target: 3, allowedMoves: 2 },
+  { target: 4, allowedMoves: 2 },
+  { target: 5, allowedMoves: 3 },
+  { target: 6, allowedMoves: 3 },
+  { target: 7, allowedMoves: 4 },
+  { target: 8, allowedMoves: 3 },
+  { target: 9, allowedMoves: 4 },
+  { target: 9, allowedMoves: 4 },
+  { target: 10, allowedMoves: 4 }
+];
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { target: 8, number: 1, moves: 0 };
+    this.state = { target: 8, number: 1, moves: 0, allowedMoves: 2 };
     this.addOne = this.addOne.bind(this);
     this.removeOne = this.removeOne.bind(this);
     this.double = this.double.bind(this);
@@ -59,7 +72,6 @@ class App extends Component {
             y={y + size / 2 + 5}
             fontFamily="Verdana"
             fontSize={textSize}
-            fill="#f4e6cb"
           >
             {number}
           </text>
