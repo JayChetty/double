@@ -14,87 +14,71 @@ class App extends Component {
   sequanceArray(size) {
     return Array.from(Array(size).keys());
   }
-  createFilledSquares(number) {
-    return this.sequanceArray(number).map(squareNumber => {
+
+  createSquares(number, target) {
+    return this.sequanceArray(100).map(squareNumber => {
+      let className = null;
+      if (number > squareNumber) {
+        className = "action";
+      }
       const size = 20;
-      const margin = 4;
+      const margin = 8;
       const rowNumber = Math.floor(squareNumber / 10);
       const colNumber = Math.floor(squareNumber % 10);
       const x = size * colNumber + margin * colNumber + offsetX;
       const y = size * rowNumber + margin * rowNumber + offsetY;
+      let text = null;
 
+      let targetCircle = null;
+      if (squareNumber === target - 1) {
+        targetCircle = (
+          <circle
+            cx={x + size / 2}
+            cy={y + size / 2}
+            r="17"
+            fill="none"
+            stroke="#993456"
+            stroke-width="2"
+          />
+        );
+      }
+
+      if (squareNumber === number - 1) {
+        let xTextAdjust = 5;
+        let textSize = 15;
+        if (number >= 10) {
+          xTextAdjust = 8;
+          textSize = 13;
+        }
+        text = (
+          <text
+            x={x + size / 2 - xTextAdjust}
+            y={y + size / 2 + 5}
+            fontFamily="Verdana"
+            fontSize={textSize}
+            fill="#f4e6cb"
+          >
+            {number}
+          </text>
+        );
+      }
       return (
         <g>
           <rect
             key={squareNumber}
-            className={"mover"}
+            className={className}
             x={x}
             y={y}
             width={size}
             height={size}
-            fill="#FFBB33"
-            stroke="#000000"
-            fillOpacity="0.8"
+            fill="#EEEEEE"
+            stroke="#EEEEEE"
+            rx={1}
+            ry={1}
           />
-          <polygon
-            points={`${x},${y} ${x + 5},${y - 5} ${x + 5},${y + 15} ${x},${y +
-              20}`}
-            fill="#FFBB33"
-            fillOpacity="0.8"
-            stroke="#000000"
-            className={"leftCube"}
-          >
-            <animateTransform
-              attributeName="transform"
-              attributeType="XML"
-              type="scale"
-              from="0.6 1"
-              to="1 1"
-              dur="1s"
-            />
-          </polygon>
-          <polygon
-            points={`${x},${y + 20} ${x + 20},${y + 20} ${x + 25},${y +
-              15} ${x + 5},${y + 15}`}
-            fill="#FFBB33"
-            fillOpacity="0.8"
-            stroke="#000000"
-            className={"leftCube"}
-          >
-            <animateTransform
-              attributeName="transform"
-              attributeType="XML"
-              type="scale"
-              from="0.6 1"
-              to="1 1"
-              dur="1s"
-            />
-          </polygon>
+          {targetCircle}
+          {text}
         </g>
-      );
-    });
-  }
-
-  createSquares() {
-    return this.sequanceArray(100).map(squareNumber => {
-      const size = 20;
-      const margin = 4;
-      const rowNumber = Math.floor(squareNumber / 10);
-      const colNumber = Math.floor(squareNumber % 10);
-      const x = size * colNumber + margin * colNumber + offsetX;
-      const y = size * rowNumber + margin * rowNumber + offsetY;
-
-      return (
-        <rect
-          key={squareNumber}
-          className={"standard"}
-          x={x}
-          y={y}
-          width={size}
-          height={size}
-          fill="#EEEEEE"
-          stroke="#EEEEEE"
-        />
       );
     });
   }
@@ -123,14 +107,11 @@ class App extends Component {
   }
 
   render() {
-    const baseRects = this.createSquares();
-    const rects = this.createFilledSquares(this.state.number);
+    const rects = this.createSquares(this.state.number, this.state.target);
 
-    // const rects = this.createGrid();
     return (
       <div className="App">
-        <svg className="grid" width="260" height="260">
-          {baseRects}
+        <svg className="grid" width="300" height="300">
           {rects}
         </svg>
         <span> Moves:{this.state.moves} </span>
