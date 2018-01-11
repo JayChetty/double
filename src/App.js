@@ -8,24 +8,28 @@ const levels = [
   { target: 2, allowedMoves: 1 },
   { target: 3, allowedMoves: 2 },
   { target: 4, allowedMoves: 2 },
-  { target: 5, allowedMoves: 3 },
-  { target: 6, allowedMoves: 3 },
-  { target: 7, allowedMoves: 4 },
+  { target: 8, allowedMoves: 4 },
   { target: 8, allowedMoves: 3 },
-  { target: 9, allowedMoves: 4 },
+  { target: 6, allowedMoves: 3 },
+  { target: 5, allowedMoves: 3 },
+  { target: 7, allowedMoves: 4 },
   { target: 9, allowedMoves: 4 },
   { target: 10, allowedMoves: 4 }
 ];
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { target: 8, number: 1, moves: 0, allowedMoves: 2 };
+    this.state = { number: 1, moves: 0, levelIndex: 0 };
     this.addOne = this.addOne.bind(this);
     this.removeOne = this.removeOne.bind(this);
     this.double = this.double.bind(this);
   }
   sequanceArray(size) {
     return Array.from(Array(size).keys());
+  }
+  level() {
+    return levels[this.state.levelIndex];
   }
 
   createSquares(number, target) {
@@ -92,7 +96,7 @@ class App extends Component {
             ry={1}
           />
           {targetCircle}
-          {text}
+          {null}
         </g>
       );
     });
@@ -121,14 +125,35 @@ class App extends Component {
     });
   }
 
-  render() {
-    const rects = this.createSquares(this.state.number, this.state.target);
+  completed() {
+    this.setState({
+      levelIndex: this.state.levelIndex + 1,
+      number: 1,
+      moves: 0
+    });
+  }
 
+  reset() {
+    this.setState({
+      number: 1,
+      moves: 0
+    });
+  }
+
+  render() {
+    const rects = this.createSquares(this.state.number, this.level().target);
+    if (this.state.number === this.level().target) {
+      this.completed();
+    }
+    if (this.state.moves >= this.level().allowedMoves) {
+      this.reset();
+    }
     return (
       <div className="App">
         <svg className="grid" width="300" height="300">
           {rects}
         </svg>
+        <span> Allowed Moves:{this.level().allowedMoves} </span>
         <span> Moves:{this.state.moves} </span>
         <div className="buttons">
           <button onClick={this.addOne}> +1 </button>
