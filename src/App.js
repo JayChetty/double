@@ -7,20 +7,23 @@ const offsetY = 10;
 const levels = [
   { target: 2, allowedMoves: 1 },
   { target: 3, allowedMoves: 2 },
+  { target: 4, allowedMoves: 3 },
   { target: 4, allowedMoves: 2 },
   { target: 8, allowedMoves: 4 },
   { target: 8, allowedMoves: 3 },
+  { target: 6, allowedMoves: 4 },
   { target: 6, allowedMoves: 3 },
   { target: 5, allowedMoves: 3 },
   { target: 7, allowedMoves: 4 },
   { target: 9, allowedMoves: 4 },
+  { target: 10, allowedMoves: 5 },
   { target: 10, allowedMoves: 4 }
 ];
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { number: 1, moves: 0, levelIndex: 0 };
+    this.state = { number: 1, moves: 0, levelIndex: 0, stalled: false };
     this.addOne = this.addOne.bind(this);
     this.removeOne = this.removeOne.bind(this);
     this.double = this.double.bind(this);
@@ -38,7 +41,7 @@ class App extends Component {
       if (number > squareNumber) {
         className = "action";
       }
-      if (number === target) {
+      if (number === target && squareNumber === target - 1) {
         className = className + " completed";
       }
       const size = 20;
@@ -58,7 +61,7 @@ class App extends Component {
             r="17"
             fill="none"
             stroke="#993456"
-            stroke-width="2"
+            strokeWidth="2"
           />
         );
       }
@@ -82,9 +85,8 @@ class App extends Component {
         );
       }
       return (
-        <g>
+        <g key={squareNumber}>
           <rect
-            key={squareNumber}
             className={className}
             x={x}
             y={y}
@@ -125,27 +127,34 @@ class App extends Component {
     });
   }
 
-  completed() {
-    this.setState({
-      levelIndex: this.state.levelIndex + 1,
-      number: 1,
-      moves: 0
+  stallAndComplete(levelIncrease, wait) {
+    this.setState({ stalled: true }, () => {
+      setTimeout(() => {
+        this.setState({
+          levelIndex: this.state.levelIndex + levelIncrease,
+          number: 1,
+          moves: 0,
+          stalled: false
+        });
+      }, wait);
     });
+  }
+
+  completed() {
+    this.stallAndComplete(1, 2000);
   }
 
   reset() {
-    this.setState({
-      number: 1,
-      moves: 0
-    });
+    this.stallAndComplete(0, 1000);
   }
 
   render() {
-    const rects = this.createSquares(this.state.number, this.level().target);
-    if (this.state.number === this.level().target) {
+    const { stalled, moves, number } = this.state;
+    const { target, allowedMoves } = this.level();
+    const rects = this.createSquares(number, target);
+    if (number === target && !this.state.stalled) {
       this.completed();
-    }
-    if (this.state.moves >= this.level().allowedMoves) {
+    } else if (moves >= allowedMoves && !stalled) {
       this.reset();
     }
     return (
@@ -153,12 +162,23 @@ class App extends Component {
         <svg className="grid" width="300" height="300">
           {rects}
         </svg>
-        <span> Allowed Moves:{this.level().allowedMoves} </span>
-        <span> Moves:{this.state.moves} </span>
+        <span>
+          {target} in {allowedMoves}
+        </span>
         <div className="buttons">
-          <button onClick={this.addOne}> +1 </button>
-          <button onClick={this.double}> x2 </button>
-          <button onClick={this.removeOne}> -1 </button>
+          <button
+            disabled={stalled}
+            className="button"
+            onClick={this.removeOne}
+          >
+            -1
+          </button>
+          <button disabled={stalled} className="button" onClick={this.double}>
+            x2
+          </button>
+          <button disabled={stalled} className="button" onClick={this.addOne}>
+            +1
+          </button>
         </div>
       </div>
     );

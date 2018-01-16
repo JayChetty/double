@@ -81,7 +81,7 @@ circle {
 }
 
 .completed {
-  animation: Completed 1 0.6s ease;
+  animation: Square-Change-Completed 1.2s linear;
   animation-fill-mode: forwards;
   transform-origin: center;
 }
@@ -91,14 +91,20 @@ text {
   animation-fill-mode: forwards;
 }
 
-@keyframes Text-appear {
+@keyframes Square-Change-Completed {
   0% {
-    fill: #eeeeee;
   }
   50% {
-    fill: #993456;
+    transform: rotate(60deg);
+  }
+  75% {
+    transform: rotate(40deg);
+  }
+  85% {
+    transform: rotate(50deg);
   }
   100% {
-    fill: #f4e6cb;
+    transform: rotate(45deg);
+    fill: #d4af37;
   }
 }
