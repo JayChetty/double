@@ -162,9 +162,9 @@ class App extends Component {
         <svg className="grid" width="300" height="300">
           {rects}
         </svg>
-        <span>
+        {/* <span>
           {target} in {allowedMoves}
-        </span>
+        </span> */}
         <div className="buttons">
           <button
             disabled={stalled}
@@ -173,7 +173,11 @@ class App extends Component {
           >
             -
           </button>
-          <button disabled={stalled} className="button" onClick={this.double}>
+          <button
+            disabled={stalled}
+            className="button large"
+            onClick={this.double}
+          >
             x2
           </button>
           <button disabled={stalled} className="button" onClick={this.addOne}>
