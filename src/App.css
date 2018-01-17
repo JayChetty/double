@@ -108,3 +108,12 @@ text {
     fill: #d4af37;
   }
 }
+
+button {
+  border-radius: 100%;
+  border: 1px #cccccc solid;
+  font-size: 16px;
+  width: 50px;
+  height: 50px;
+  color: #888888;
+}

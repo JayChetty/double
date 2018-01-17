@@ -171,13 +171,13 @@ class App extends Component {
             className="button"
             onClick={this.removeOne}
           >
-            -1
+            -
           </button>
           <button disabled={stalled} className="button" onClick={this.double}>
             x2
           </button>
           <button disabled={stalled} className="button" onClick={this.addOne}>
-            +1
+            +
           </button>
         </div>
       </div>
