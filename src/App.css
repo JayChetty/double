@@ -139,3 +139,19 @@ button.large {
   width: 100px;
   height: 100px;
 }
+
+.levels {
+  border: 1px solid black;
+  width: 90%;
+  height: 95%;
+  margin-left: 20px;
+  top: 20px;
+  position: absolute;
+  border-radius: 10px;
+  background: white;
+}
+
+.level {
+  margin: 10px;
+  border-bottom: 1px solid black;
+}

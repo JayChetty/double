@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import Levels from "./Levels";
 
 const offsetX = 10;
 const offsetY = 10;
@@ -149,7 +150,7 @@ class App extends Component {
   }
 
   render() {
-    const { stalled, moves, number } = this.state;
+    const { stalled, moves, number, currentLevel } = this.state;
     const { target, allowedMoves } = this.level();
     const rects = this.createSquares(number, target);
     if (number === target && !this.state.stalled) {
@@ -159,6 +160,7 @@ class App extends Component {
     }
     return (
       <div className="App">
+        <Levels levels={levels} currentLevel={currentLevel} />
         <svg className="grid" width="300" height="300">
           {rects}
         </svg>
