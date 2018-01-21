@@ -149,9 +149,23 @@ button.large {
   position: absolute;
   border-radius: 10px;
   background: white;
+  overflow: scroll;
+  display: none;
 }
 
 .level {
-  margin: 10px;
+  margin: 15px;
+  padding: 10px;
   border-bottom: 1px solid black;
+}
+
+.show {
+  display: block;
+}
+.completed {
+}
+.next {
+  background-color: #998877;
+}
+.future {
 }

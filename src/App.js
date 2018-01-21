@@ -24,10 +24,17 @@ const levels = [
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { number: 1, moves: 0, levelIndex: 0, stalled: false };
+    this.state = {
+      number: 1,
+      moves: 0,
+      levelIndex: 0,
+      stalled: false,
+      showLevels: false
+    };
     this.addOne = this.addOne.bind(this);
     this.removeOne = this.removeOne.bind(this);
     this.double = this.double.bind(this);
+    this.playNextLevel = this.playNextLevel.bind(this);
   }
   sequanceArray(size) {
     return Array.from(Array(size).keys());
@@ -128,39 +135,57 @@ class App extends Component {
     });
   }
 
-  stallAndComplete(levelIncrease, wait) {
+  playNextLevel() {
+    this.setState({ levelIndex: this.state.levelIndex + 1, showLevels: false });
+  }
+
+  completed() {
     this.setState({ stalled: true }, () => {
       setTimeout(() => {
         this.setState({
-          levelIndex: this.state.levelIndex + levelIncrease,
+          number: 1,
+          moves: 0,
+          stalled: false,
+          showLevels: true
+        });
+      }, 2000);
+    });
+  }
+
+  reset() {
+    this.setState({ stalled: true }, () => {
+      setTimeout(() => {
+        this.setState({
           number: 1,
           moves: 0,
           stalled: false
         });
-      }, wait);
+      }, 1000);
     });
   }
 
-  completed() {
-    this.stallAndComplete(1, 2000);
-  }
-
-  reset() {
-    this.stallAndComplete(0, 1000);
-  }
-
   render() {
-    const { stalled, moves, number, currentLevel } = this.state;
+    const { stalled, moves, number, levelIndex, showLevels } = this.state;
     const { target, allowedMoves } = this.level();
+    console.log("number", number);
+    console.log("target", target);
+    console.log("stalled", stalled);
+
+    const levelComplete = number === target && !stalled;
     const rects = this.createSquares(number, target);
-    if (number === target && !this.state.stalled) {
+    if (levelComplete) {
       this.completed();
     } else if (moves >= allowedMoves && !stalled) {
       this.reset();
     }
     return (
       <div className="App">
-        <Levels levels={levels} currentLevel={currentLevel} />
+        <Levels
+          levels={levels}
+          currentLevelIndex={levelIndex}
+          show={showLevels}
+          playNextLevel={this.playNextLevel}
+        />
         <svg className="grid" width="300" height="300">
           {rects}
         </svg>
