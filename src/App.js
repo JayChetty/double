@@ -140,14 +140,16 @@ class App extends Component {
     } else if (moves >= allowedMoves && !stalled) {
       this.reset();
     }
+    const controls = showLevels ? null : (
+      <Controls
+        stalled={stalled}
+        addOne={this.addOne}
+        double={this.double}
+        removeOne={this.removeOne}
+      />
+    );
     return (
       <div className="App">
-        {/* <Levels
-          levels={levels}
-          currentLevelIndex={levelIndex}
-          show={showLevels}
-          playNextLevel={this.playNextLevel}
-        /> */}
         <Grid
           number={number}
           target={target}
@@ -155,12 +157,7 @@ class App extends Component {
           completedLevels={completedLevels}
           createLevelClickAction={this.createLevelClickAction}
         />
-        <Controls
-          stalled={stalled}
-          addOne={this.addOne}
-          double={this.double}
-          removeOne={this.removeOne}
-        />
+        {controls}
       </div>
     );
   }

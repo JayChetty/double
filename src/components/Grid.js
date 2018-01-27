@@ -16,7 +16,7 @@ const createSquaresOverview = (completedLevels, createLevelClickAction) => {
         completedLevelindex => completedLevelindex === squareNumber
       )
     ) {
-      className = className + " completed";
+      className = className + " level-completed";
     }
     const size = 20;
     const margin = 8;

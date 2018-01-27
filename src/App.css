@@ -84,11 +84,18 @@ circle {
   }
   100% {
     transform: rotate(45deg);
-    fill: #993456;
+    /*fill: #993456;*/
+    fill: #aaaaaa;
   }
 }
 
 .completed {
+  animation: Square-Change-Completed 1.2s linear;
+  animation-fill-mode: forwards;
+  transform-origin: center;
+}
+
+.level-completed {
   animation: Square-Change-Completed 1.2s linear;
   animation-fill-mode: forwards;
   transform-origin: center;
@@ -100,8 +107,6 @@ text {
 }
 
 @keyframes Square-Change-Completed {
-  0% {
-  }
   50% {
     transform: rotate(60deg);
   }
