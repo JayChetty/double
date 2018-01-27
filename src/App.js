@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-import Levels from "./Levels";
+import Levels from "./components/Levels";
 
-const offsetX = 10;
-const offsetY = 10;
-
+import Grid from "./components/Grid";
 const levels = [
   { target: 2, allowedMoves: 1 },
   { target: 3, allowedMoves: 2 },
@@ -36,80 +34,9 @@ class App extends Component {
     this.double = this.double.bind(this);
     this.playNextLevel = this.playNextLevel.bind(this);
   }
-  sequanceArray(size) {
-    return Array.from(Array(size).keys());
-  }
+
   level() {
     return levels[this.state.levelIndex];
-  }
-
-  createSquares(number, target) {
-    return this.sequanceArray(100).map(squareNumber => {
-      let className = "";
-      if (number > squareNumber) {
-        className = "action";
-      }
-      if (number === target && squareNumber === target - 1) {
-        className = className + " completed";
-      }
-      const size = 20;
-      const margin = 8;
-      const rowNumber = Math.floor(squareNumber / 10);
-      const colNumber = Math.floor(squareNumber % 10);
-      const x = size * colNumber + margin * colNumber + offsetX;
-      const y = size * rowNumber + margin * rowNumber + offsetY;
-      let text = null;
-
-      let targetCircle = null;
-      if (squareNumber === target - 1) {
-        targetCircle = (
-          <circle
-            cx={x + size / 2}
-            cy={y + size / 2}
-            r="17"
-            fill="none"
-            stroke="#993456"
-            strokeWidth="2"
-          />
-        );
-      }
-
-      if (squareNumber === number - 1) {
-        let xTextAdjust = 5;
-        let textSize = 15;
-        if (number >= 10) {
-          xTextAdjust = 8;
-          textSize = 13;
-        }
-        text = (
-          <text
-            x={x + size / 2 - xTextAdjust}
-            y={y + size / 2 + 5}
-            fontFamily="Verdana"
-            fontSize={textSize}
-          >
-            {number}
-          </text>
-        );
-      }
-      return (
-        <g key={squareNumber}>
-          <rect
-            className={className}
-            x={x}
-            y={y}
-            width={size}
-            height={size}
-            fill="#EEEEEE"
-            stroke="#EEEEEE"
-            rx={1}
-            ry={1}
-          />
-          {targetCircle}
-          {null}
-        </g>
-      );
-    });
   }
 
   addOne() {
@@ -172,7 +99,7 @@ class App extends Component {
     console.log("stalled", stalled);
 
     const levelComplete = number === target && !stalled;
-    const rects = this.createSquares(number, target);
+
     if (levelComplete) {
       this.completed();
     } else if (moves >= allowedMoves && !stalled) {
@@ -186,9 +113,8 @@ class App extends Component {
           show={showLevels}
           playNextLevel={this.playNextLevel}
         />
-        <svg className="grid" width="300" height="300">
-          {rects}
-        </svg>
+        <Grid number={number} target={target} />
+
         {/* <span>
           {target} in {allowedMoves}
         </span> */}
