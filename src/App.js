@@ -6,35 +6,54 @@ import Grid from "./components/Grid";
 import Controls from "./components/Controls";
 
 const levels = [
-  { target: 2, allowedMoves: 1 },
-  { target: 3, allowedMoves: 2 },
-  { target: 4, allowedMoves: 3 },
-  { target: 4, allowedMoves: 2 },
-  { target: 8, allowedMoves: 4 },
-  { target: 8, allowedMoves: 3 },
-  { target: 6, allowedMoves: 4 },
-  { target: 6, allowedMoves: 3 },
-  { target: 5, allowedMoves: 3 },
-  { target: 7, allowedMoves: 4 },
-  { target: 9, allowedMoves: 4 },
-  { target: 10, allowedMoves: 5 },
-  { target: 10, allowedMoves: 4 }
+  { target: 1, best: 1 },
+  { target: 2, best: 2 },
+  { target: 3, best: 3 },
+  { target: 4, best: 3 },
+  { target: 5, best: 4 },
+  { target: 6, best: 4 },
+  { target: 7, best: 3 },
+  { target: 8, best: 4 },
+  { target: 9, best: 3 },
+  { target: 10, best: 3 },
+  { target: 11, best: 4 },
+  { target: 12, best: 4 },
+  { target: 13, best: 5 },
+  { target: 14, best: 4 }
 ];
+
+// const levels = [
+//   { target: 2, allowedMoves: 1 },
+//   { target: 3, allowedMoves: 2 },
+//   { target: 4, allowedMoves: 3 },
+//   { target: 4, allowedMoves: 2 },
+//   { target: 8, allowedMoves: 4 },
+//   { target: 8, allowedMoves: 3 },
+//   { target: 6, allowedMoves: 4 },
+//   { target: 6, allowedMoves: 3 },
+//   { target: 5, allowedMoves: 3 },
+//   { target: 7, allowedMoves: 4 },
+//   { target: 9, allowedMoves: 4 },
+//   { target: 10, allowedMoves: 5 },
+//   { target: 10, allowedMoves: 4 }
+// ];
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      number: 1,
+      number: 0,
       moves: 0,
       levelIndex: 0,
       stalled: false,
-      showLevels: false
+      showLevels: false,
+      completedLevels: []
     };
     this.addOne = this.addOne.bind(this);
     this.removeOne = this.removeOne.bind(this);
     this.double = this.double.bind(this);
     this.playNextLevel = this.playNextLevel.bind(this);
+    this.createLevelClickAction = this.createLevelClickAction.bind(this);
   }
 
   level() {
@@ -68,14 +87,24 @@ class App extends Component {
     this.setState({ levelIndex: this.state.levelIndex + 1, showLevels: false });
   }
 
+  createLevelClickAction(index) {
+    return levelIndex =>
+      this.setState({ levelIndex: index, showLevels: false });
+  }
+
   completed() {
     this.setState({ stalled: true }, () => {
       setTimeout(() => {
+        const completedLevels = [
+          ...this.state.completedLevels,
+          this.state.levelIndex
+        ];
         this.setState({
-          number: 1,
+          number: 0,
           moves: 0,
           stalled: false,
-          showLevels: true
+          showLevels: true,
+          completedLevels: completedLevels
         });
       }, 2000);
     });
@@ -85,7 +114,7 @@ class App extends Component {
     this.setState({ stalled: true }, () => {
       setTimeout(() => {
         this.setState({
-          number: 1,
+          number: 0,
           moves: 0,
           stalled: false
         });
@@ -94,11 +123,18 @@ class App extends Component {
   }
 
   render() {
-    const { stalled, moves, number, levelIndex, showLevels } = this.state;
+    const {
+      stalled,
+      moves,
+      number,
+      levelIndex,
+      showLevels,
+      completedLevels
+    } = this.state;
     const { target, allowedMoves } = this.level();
 
     const levelComplete = number === target && !stalled;
-
+    console.log("showlevels", showLevels);
     if (levelComplete) {
       this.completed();
     } else if (moves >= allowedMoves && !stalled) {
@@ -106,13 +142,19 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <Levels
+        {/* <Levels
           levels={levels}
           currentLevelIndex={levelIndex}
           show={showLevels}
           playNextLevel={this.playNextLevel}
+        /> */}
+        <Grid
+          number={number}
+          target={target}
+          showLevels={showLevels}
+          completedLevels={completedLevels}
+          createLevelClickAction={this.createLevelClickAction}
         />
-        <Grid number={number} target={target} />
         <Controls
           stalled={stalled}
           addOne={this.addOne}
