@@ -3,6 +3,8 @@ import "./App.css";
 import Levels from "./components/Levels";
 
 import Grid from "./components/Grid";
+import Controls from "./components/Controls";
+
 const levels = [
   { target: 2, allowedMoves: 1 },
   { target: 3, allowedMoves: 2 },
@@ -94,9 +96,6 @@ class App extends Component {
   render() {
     const { stalled, moves, number, levelIndex, showLevels } = this.state;
     const { target, allowedMoves } = this.level();
-    console.log("number", number);
-    console.log("target", target);
-    console.log("stalled", stalled);
 
     const levelComplete = number === target && !stalled;
 
@@ -114,29 +113,12 @@ class App extends Component {
           playNextLevel={this.playNextLevel}
         />
         <Grid number={number} target={target} />
-
-        {/* <span>
-          {target} in {allowedMoves}
-        </span> */}
-        <div className="buttons">
-          <button
-            disabled={stalled}
-            className="button"
-            onClick={this.removeOne}
-          >
-            -
-          </button>
-          <button
-            disabled={stalled}
-            className="button large"
-            onClick={this.double}
-          >
-            x2
-          </button>
-          <button disabled={stalled} className="button" onClick={this.addOne}>
-            +
-          </button>
-        </div>
+        <Controls
+          stalled={stalled}
+          addOne={this.addOne}
+          double={this.double}
+          removeOne={this.removeOne}
+        />
       </div>
     );
   }
