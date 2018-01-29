@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import Levels from "./components/Levels";
-
 import Grid from "./components/Grid";
 import Controls from "./components/Controls";
 
@@ -22,22 +20,6 @@ const levels = [
   { target: 14, best: 4 }
 ];
 
-// const levels = [
-//   { target: 2, allowedMoves: 1 },
-//   { target: 3, allowedMoves: 2 },
-//   { target: 4, allowedMoves: 3 },
-//   { target: 4, allowedMoves: 2 },
-//   { target: 8, allowedMoves: 4 },
-//   { target: 8, allowedMoves: 3 },
-//   { target: 6, allowedMoves: 4 },
-//   { target: 6, allowedMoves: 3 },
-//   { target: 5, allowedMoves: 3 },
-//   { target: 7, allowedMoves: 4 },
-//   { target: 9, allowedMoves: 4 },
-//   { target: 10, allowedMoves: 5 },
-//   { target: 10, allowedMoves: 4 }
-// ];
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -49,47 +31,8 @@ class App extends Component {
       showLevels: false,
       completedLevels: []
     };
-    this.addOne = this.addOne.bind(this);
-    this.removeOne = this.removeOne.bind(this);
-    this.double = this.double.bind(this);
-    this.playNextLevel = this.playNextLevel.bind(this);
+    this.playMove = this.playMove.bind(this);
     this.createLevelClickAction = this.createLevelClickAction.bind(this);
-  }
-
-  level() {
-    return levels[this.state.levelIndex];
-  }
-
-  addOne() {
-    this.setState({
-      number: this.state.number + 1,
-      moves: this.state.moves + 1
-    });
-  }
-
-  removeOne() {
-    if (this.state.number < 1) {
-      return null;
-    }
-    this.setState({
-      number: this.state.number - 1,
-      moves: this.state.moves + 1
-    });
-  }
-  double() {
-    this.setState({
-      number: this.state.number * 2,
-      moves: this.state.moves + 1
-    });
-  }
-
-  playNextLevel() {
-    this.setState({ levelIndex: this.state.levelIndex + 1, showLevels: false });
-  }
-
-  createLevelClickAction(index) {
-    return levelIndex =>
-      this.setState({ levelIndex: index, showLevels: false });
   }
 
   completed() {
@@ -110,43 +53,51 @@ class App extends Component {
     });
   }
 
-  reset() {
-    this.setState({ stalled: true }, () => {
-      setTimeout(() => {
-        this.setState({
-          number: 0,
-          moves: 0,
-          stalled: false
-        });
-      }, 1000);
-    });
+  level() {
+    return levels[this.state.levelIndex];
+  }
+
+  playMove(operation) {
+    return a => {
+      const currentNumber = this.state.number;
+      let newNumber;
+      switch (operation) {
+        case "addOne":
+          newNumber = currentNumber + 1;
+          break;
+        case "removeOne":
+          newNumber = currentNumber - 1;
+          break;
+        case "double":
+          newNumber = currentNumber * 2;
+          break;
+        default:
+          console.error("NOT RECOGNISE");
+      }
+
+      this.setState({
+        number: newNumber,
+        moves: this.state.moves + 1
+      });
+
+      const target = this.level().target;
+      const levelComplete = newNumber === target;
+
+      levelComplete && this.completed();
+    };
+  }
+
+  createLevelClickAction(index) {
+    return levelIndex =>
+      this.setState({ levelIndex: index, showLevels: false });
   }
 
   render() {
-    const {
-      stalled,
-      moves,
-      number,
-      levelIndex,
-      showLevels,
-      completedLevels
-    } = this.state;
-    const { target, allowedMoves } = this.level();
+    const { stalled, number, showLevels, completedLevels } = this.state;
+    const { target } = this.level();
 
-    const levelComplete = number === target && !stalled;
-    console.log("showlevels", showLevels);
-    if (levelComplete) {
-      this.completed();
-    } else if (moves >= allowedMoves && !stalled) {
-      this.reset();
-    }
     const controls = showLevels ? null : (
-      <Controls
-        stalled={stalled}
-        addOne={this.addOne}
-        double={this.double}
-        removeOne={this.removeOne}
-      />
+      <Controls stalled={stalled} playMove={this.playMove} />
     );
     return (
       <div className="App">
