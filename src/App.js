@@ -35,21 +35,40 @@ class App extends Component {
     this.createLevelClickAction = this.createLevelClickAction.bind(this);
   }
 
-  completed() {
-    this.setState({ stalled: true }, () => {
-      setTimeout(() => {
-        const completedLevels = [
-          ...this.state.completedLevels,
-          this.state.levelIndex
-        ];
-        this.setState({
-          number: 0,
-          moves: 0,
-          stalled: false,
-          showLevels: true,
-          completedLevels: completedLevels
-        });
-      }, 2000);
+  delay(time) {
+    return new Promise((yah, _) => {
+      setTimeout(yah, time);
+    });
+  }
+
+  reachedTarget() {
+    this.setState({ stalled: true }, async () => {
+      await this.delay(2000);
+      const completedLevels = [
+        ...this.state.completedLevels,
+        this.state.levelIndex
+      ];
+      this.setState({
+        number: 0,
+        moves: 0,
+        stalled: false,
+        showLevels: true,
+        completedLevels: completedLevels
+      });
+
+      // setTimeout(() => {
+      //   const completedLevels = [
+      //     ...this.state.completedLevels,
+      //     this.state.levelIndex
+      //   ];
+      //   this.setState({
+      //     number: 0,
+      //     moves: 0,
+      //     stalled: false,
+      //     showLevels: true,
+      //     completedLevels: completedLevels
+      //   });
+      // }, 2000);
     });
   }
 
@@ -81,9 +100,9 @@ class App extends Component {
       });
 
       const target = this.level().target;
-      const levelComplete = newNumber === target;
+      const atTarget = newNumber === target;
 
-      levelComplete && this.completed();
+      atTarget && this.reachedTarget();
     };
   }
 
