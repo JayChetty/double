@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Grid from "./components/Grid";
 import Controls from "./components/Controls";
+import Feedback from "./components/Feedback";
 
 const levels = [
   { target: 1, best: 1 },
@@ -55,20 +56,6 @@ class App extends Component {
         showLevels: true,
         completedLevels: completedLevels
       });
-
-      // setTimeout(() => {
-      //   const completedLevels = [
-      //     ...this.state.completedLevels,
-      //     this.state.levelIndex
-      //   ];
-      //   this.setState({
-      //     number: 0,
-      //     moves: 0,
-      //     stalled: false,
-      //     showLevels: true,
-      //     completedLevels: completedLevels
-      //   });
-      // }, 2000);
     });
   }
 
@@ -112,14 +99,15 @@ class App extends Component {
   }
 
   render() {
-    const { stalled, number, showLevels, completedLevels } = this.state;
-    const { target } = this.level();
+    const { stalled, number, showLevels, completedLevels, moves } = this.state;
+    const { target, best } = this.level();
 
     const controls = showLevels ? null : (
       <Controls stalled={stalled} playMove={this.playMove} />
     );
     return (
       <div className="App">
+        <Feedback moves={moves} atTarget={target === number} minMoves={best} />
         <Grid
           number={number}
           target={target}
