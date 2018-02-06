@@ -10,6 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   height: 100%;
 }
 
@@ -125,24 +126,23 @@ text {
 .buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-end;
+  padding: 5px;
+  margin: 15px;
+  /*border: 1px solid #999;*/
+  /*border-radius: 20px;*/
 }
 
-button {
+.button {
   border-radius: 100%;
   border: 1px #cccccc solid;
   font-size: 32px;
   width: 80px;
   height: 80px;
   color: #888888;
-  margin: 5px;
+  margin: 15px;
   background-color: white;
-}
-
-button.large {
-  width: 100px;
-  height: 100px;
 }
 
 .levels {
@@ -173,4 +173,23 @@ button.large {
   background-color: #998877;
 }
 .future {
+}
+
+.feedback {
+  padding: 10px;
+  margin: 15px;
+  max-width: 150px;
+  color: #888;
+  border: 1px solid #888;
+  border-radius: 25px;
+}
+
+.moves {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #888;
+  border-radius: 100%;
+  text-align: center;
+  padding-top: 5px;
 }

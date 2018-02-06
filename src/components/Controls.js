@@ -13,7 +13,7 @@ export default function Controls({ stalled, number, playMove }) {
       </button>
       <button
         disabled={atZero || stalled}
-        className="button large"
+        className="button"
         onClick={playMove("double")}
       >
         x2
