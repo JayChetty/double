@@ -1,17 +1,18 @@
 import React from "react";
 
-export default function Controls({ stalled, playMove }) {
+export default function Controls({ stalled, number, playMove }) {
+  const atZero = number === 0;
   return (
     <div className="buttons">
       <button
-        disabled={stalled}
+        disabled={atZero || stalled}
         className="button"
         onClick={playMove("removeOne")}
       >
         -
       </button>
       <button
-        disabled={stalled}
+        disabled={atZero || stalled}
         className="button large"
         onClick={playMove("double")}
       >

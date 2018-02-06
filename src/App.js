@@ -3,23 +3,8 @@ import "./App.css";
 import Grid from "./components/Grid";
 import Controls from "./components/Controls";
 import Feedback from "./components/Feedback";
-
-const levels = [
-  { target: 1, best: 1 },
-  { target: 2, best: 2 },
-  { target: 3, best: 3 },
-  { target: 4, best: 3 },
-  { target: 5, best: 4 },
-  { target: 6, best: 4 },
-  { target: 7, best: 3 },
-  { target: 8, best: 4 },
-  { target: 9, best: 3 },
-  { target: 10, best: 3 },
-  { target: 11, best: 4 },
-  { target: 12, best: 4 },
-  { target: 13, best: 5 },
-  { target: 14, best: 4 }
-];
+import NextLevelButton from "./components/NextLevelButton";
+import levels from "./data/levels";
 
 class App extends Component {
   constructor(props) {
@@ -43,19 +28,31 @@ class App extends Component {
   }
 
   reachedTarget() {
+    const { best } = this.level();
+    const { moves } = this.state;
+    const inMinMoves = best === moves;
+    console.log("best moves", best, moves);
     this.setState({ stalled: true }, async () => {
       await this.delay(2000);
-      const completedLevels = [
-        ...this.state.completedLevels,
-        this.state.levelIndex
-      ];
-      this.setState({
-        number: 0,
-        moves: 0,
-        stalled: false,
-        showLevels: true,
-        completedLevels: completedLevels
-      });
+      if (inMinMoves) {
+        const completedLevels = [
+          ...this.state.completedLevels,
+          this.state.levelIndex
+        ];
+        this.setState({
+          number: 0,
+          moves: 0,
+          stalled: false,
+          showLevels: true,
+          completedLevels: completedLevels
+        });
+      } else {
+        this.setState({
+          number: 0,
+          moves: 0,
+          stalled: false
+        });
+      }
     });
   }
 
@@ -81,15 +78,18 @@ class App extends Component {
           console.error("NOT RECOGNISE");
       }
 
-      this.setState({
-        number: newNumber,
-        moves: this.state.moves + 1
-      });
+      this.setState(
+        {
+          number: newNumber,
+          moves: this.state.moves + 1
+        },
+        () => {
+          const target = this.level().target;
+          const atTarget = newNumber === target;
 
-      const target = this.level().target;
-      const atTarget = newNumber === target;
-
-      atTarget && this.reachedTarget();
+          atTarget && this.reachedTarget();
+        }
+      );
     };
   }
 
@@ -99,11 +99,22 @@ class App extends Component {
   }
 
   render() {
-    const { stalled, number, showLevels, completedLevels, moves } = this.state;
+    const {
+      stalled,
+      number,
+      showLevels,
+      completedLevels,
+      moves,
+      levelIndex
+    } = this.state;
     const { target, best } = this.level();
 
-    const controls = showLevels ? null : (
-      <Controls stalled={stalled} playMove={this.playMove} />
+    const controls = showLevels ? (
+      <NextLevelButton
+        goToNextLevel={this.createLevelClickAction(levelIndex + 1)}
+      />
+    ) : (
+      <Controls stalled={stalled} number={number} playMove={this.playMove} />
     );
     return (
       <div className="App">
