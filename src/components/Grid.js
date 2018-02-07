@@ -31,6 +31,7 @@ const createSquaresOverview = (completedLevels, createLevelClickAction) => {
           className={className}
           x={x}
           y={y}
+          transform-origin={`${x + size / 2}px ${y + size / 2}px`}
           width={size}
           height={size}
           fill="#EEEEEE"
@@ -98,6 +99,7 @@ const createSquaresGame = (number, target) => {
           className={className}
           x={x}
           y={y}
+          transform-origin={`${x + size / 2}px ${y + size / 2}px`}
           width={size}
           height={size}
           fill="#EEEEEE"
