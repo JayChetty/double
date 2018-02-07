@@ -118,7 +118,7 @@ class App extends Component {
     );
     return (
       <div className="App">
-        <Feedback moves={moves} atTarget={target === number} minMoves={best} />
+        {/* <Feedback moves={moves} atTarget={target === number} minMoves={best} /> */}
         <Grid
           number={number}
           target={target}
