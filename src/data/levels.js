@@ -1,4 +1,5 @@
 export default [
+  { target: 0, best: 0 },
   { target: 1, best: 1 },
   { target: 2, best: 2 },
   { target: 3, best: 3 },

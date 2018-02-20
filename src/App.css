@@ -144,22 +144,22 @@ text {
 }
 
 .levels {
-  border: 1px solid black;
-  width: 90%;
-  height: 95%;
-  margin-left: 20px;
+  /*border: 1px solid black;*/
+  /*width: 90%;
+  height: 95%;*/
+  /*margin-left: 20px;
   top: 20px;
   position: absolute;
   border-radius: 10px;
   background: white;
-  overflow: scroll;
+  overflow: scroll;*/
   display: none;
 }
 
 .level {
-  margin: 15px;
+  /*margin: 15px;*/
   padding: 10px;
-  border-bottom: 1px solid black;
+  /*border-bottom: 1px solid black;*/
 }
 
 .show {

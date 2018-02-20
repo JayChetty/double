@@ -7,43 +7,6 @@ const sequanceArray = size => {
   return Array.from(Array(size).keys());
 };
 
-const createSquaresOverview = (completedLevels, createLevelClickAction) => {
-  console.log("completedLevels", completedLevels);
-  return sequanceArray(100).map(squareNumber => {
-    let className = "";
-    if (
-      completedLevels.some(
-        completedLevelindex => completedLevelindex === squareNumber
-      )
-    ) {
-      className = className + " level-completed";
-    }
-    const size = 20;
-    const margin = 8;
-    const rowNumber = Math.floor(squareNumber / 10);
-    const colNumber = Math.floor(squareNumber % 10);
-    const x = size * colNumber + margin * colNumber + offsetX;
-    const y = size * rowNumber + margin * rowNumber + offsetY;
-    const onClick = createLevelClickAction(squareNumber);
-    return (
-      <g key={squareNumber} onClick={onClick}>
-        <rect
-          className={className}
-          x={x}
-          y={y}
-          transform-origin={`${x + size / 2}px ${y + size / 2}px`}
-          width={size}
-          height={size}
-          fill="#EEEEEE"
-          stroke="#EEEEEE"
-          rx={1}
-          ry={1}
-        />
-      </g>
-    );
-  });
-};
-
 const createSquaresGame = (number, target) => {
   return sequanceArray(100).map(squareNumber => {
     let className = "";
@@ -114,17 +77,8 @@ const createSquaresGame = (number, target) => {
   });
 };
 
-export default function Grid({
-  number,
-  target,
-  showLevels,
-  completedLevels,
-  createLevelClickAction
-}) {
-  console.log("showlevels 2", showLevels);
-  const rects = showLevels
-    ? createSquaresOverview(completedLevels, createLevelClickAction)
-    : createSquaresGame(number, target);
+export default function Grid({ number, target }) {
+  const rects = createSquaresGame(number, target);
   return (
     <svg className="grid" width="300" height="300">
       {rects}

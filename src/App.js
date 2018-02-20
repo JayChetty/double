@@ -4,7 +4,10 @@ import Grid from "./components/Grid";
 import Controls from "./components/Controls";
 import Feedback from "./components/Feedback";
 import NextLevelButton from "./components/NextLevelButton";
-import levels from "./data/levels";
+import LevelView from "./components/LevelView";
+import bestScores from "./data/levels";
+
+const levels = [[4, 6, 8], [5, 10, 12]];
 
 class App extends Component {
   constructor(props) {
@@ -13,9 +16,10 @@ class App extends Component {
       number: 0,
       moves: 0,
       levelIndex: 0,
+      zoneIndex: 0,
       stalled: false,
       showLevels: false,
-      completedLevels: []
+      completedLevels: 0
     };
     this.playMove = this.playMove.bind(this);
     this.createLevelClickAction = this.createLevelClickAction.bind(this);
@@ -35,16 +39,12 @@ class App extends Component {
     this.setState({ stalled: true }, async () => {
       await this.delay(2000);
       if (inMinMoves) {
-        const completedLevels = [
-          ...this.state.completedLevels,
-          this.state.levelIndex
-        ];
         this.setState({
           number: 0,
           moves: 0,
           stalled: false,
           showLevels: true,
-          completedLevels: completedLevels
+          completedLevels: this.state.completedLevels + 1
         });
       } else {
         this.setState({
@@ -57,7 +57,9 @@ class App extends Component {
   }
 
   level() {
-    return levels[this.state.levelIndex];
+    const target = levels[this.state.zoneIndex][this.state.levelIndex];
+    console.log("leve", { target, best: bestScores[target] });
+    return { target, best: bestScores[target].best };
   }
 
   playMove(operation) {
@@ -75,7 +77,7 @@ class App extends Component {
           newNumber = currentNumber * 2;
           break;
         default:
-          console.error("NOT RECOGNISE");
+          console.error("NOT RECOGNISED");
       }
 
       this.setState(
@@ -116,16 +118,29 @@ class App extends Component {
     ) : (
       <Controls stalled={stalled} number={number} playMove={this.playMove} />
     );
+    const levelView = (
+      <LevelView
+        levels={levels}
+        completedLevels={completedLevels}
+        show={showLevels}
+      />
+    );
+
+    const grid = (
+      <Grid
+        number={number}
+        target={target}
+        showLevels={showLevels}
+        completedLevels={completedLevels}
+        createLevelClickAction={this.createLevelClickAction}
+      />
+    );
+
     return (
       <div className="App">
-        <Feedback moves={moves} atTarget={target === number} minMoves={best} />
-        <Grid
-          number={number}
-          target={target}
-          showLevels={showLevels}
-          completedLevels={completedLevels}
-          createLevelClickAction={this.createLevelClickAction}
-        />
+        {/* <Feedback moves={moves} atTarget={target === number} minMoves={best} /> */}
+        {levelView}
+        {grid}
         {controls}
       </div>
     );
