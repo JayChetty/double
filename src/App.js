@@ -111,11 +111,7 @@ class App extends Component {
     } = this.state;
     const { target, best } = this.level();
 
-    const controls = showLevels ? (
-      <NextLevelButton
-        goToNextLevel={this.createLevelClickAction(levelIndex + 1)}
-      />
-    ) : (
+    const controls = showLevels ? null : (
       <Controls stalled={stalled} number={number} playMove={this.playMove} />
     );
     const levelView = (
@@ -123,6 +119,7 @@ class App extends Component {
         levels={levels}
         completedLevels={completedLevels}
         show={showLevels}
+        goToNextLevel={this.createLevelClickAction(levelIndex + 1)}
       />
     );
 

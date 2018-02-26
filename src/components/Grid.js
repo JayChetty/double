@@ -7,7 +7,7 @@ const sequanceArray = size => {
   return Array.from(Array(size).keys());
 };
 
-const createSquaresGame = (number, target) => {
+const createSquares = (number, target, showLevels) => {
   return sequanceArray(100).map(squareNumber => {
     let className = "";
     if (number > squareNumber) {
@@ -25,7 +25,7 @@ const createSquaresGame = (number, target) => {
     let text = null;
 
     let targetCircle = null;
-    if (squareNumber === target - 1) {
+    if (squareNumber === target - 1 && !showLevels) {
       targetCircle = (
         <circle
           cx={x + size / 2}
@@ -77,8 +77,8 @@ const createSquaresGame = (number, target) => {
   });
 };
 
-export default function Grid({ number, target }) {
-  const rects = createSquaresGame(number, target);
+export default function Grid({ number, target, showLevels }) {
+  const rects = createSquares(number, target, showLevels);
   return (
     <svg className="grid" width="300" height="300">
       {rects}
