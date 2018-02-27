@@ -7,7 +7,7 @@ import NextLevelButton from "./components/NextLevelButton";
 import LevelView from "./components/LevelView";
 import bestScores from "./data/levels";
 
-const levels = [4, 6, 8, 5, 10, 12];
+const levels = [4, 6, 8, 5, 10, 12, 7, 14, 15, 9, 16, 11, 18, 19, 13, 20];
 
 class App extends Component {
   constructor(props) {

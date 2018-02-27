@@ -16,7 +16,7 @@ export default function Controls({ stalled, number, playMove }) {
         className="button"
         onClick={playMove("double")}
       >
-        x2
+        x
       </button>
       <button
         disabled={stalled}
