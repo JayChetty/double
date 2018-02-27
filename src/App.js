@@ -7,7 +7,7 @@ import NextLevelButton from "./components/NextLevelButton";
 import LevelView from "./components/LevelView";
 import bestScores from "./data/levels";
 
-const levels = [[4, 6, 8], [5, 10, 12]];
+const levels = [4, 6, 8, 5, 10, 12];
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +16,6 @@ class App extends Component {
       number: 0,
       moves: 0,
       levelIndex: 0,
-      zoneIndex: 0,
       stalled: false,
       showLevels: false,
       completedLevels: 0
@@ -57,7 +56,7 @@ class App extends Component {
   }
 
   level() {
-    const target = levels[this.state.zoneIndex][this.state.levelIndex];
+    const target = levels[this.state.levelIndex];
     console.log("leve", { target, best: bestScores[target] });
     return { target, best: bestScores[target].best };
   }

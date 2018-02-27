@@ -86,7 +86,6 @@ circle {
   }
   100% {
     transform: rotate(45deg);
-    /*fill: #993456;*/
     fill: #aaaaaa;
   }
 }
@@ -153,12 +152,18 @@ text {
   border-right: 1px solid #999;
   background: rgba(50, 50, 50, 0.4);
   /*display: none;*/
-  flex-direction: column;
+  /*flex-direction: row;*/
   width: 160px;
   transition: left 1s ease-in-out;
   /*transition-property: font-size;
   transition-duration: 4s;
   transition-delay: 2s;*/
+}
+
+.level-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .levels.show {
@@ -168,11 +173,21 @@ text {
 .level {
   padding: 10px;
   text-align: center;
-  border: 2px solid white;
+  border: 2px solid #999;
   min-width: 18px;
   margin: 5px;
-  color: white;
+  color: #999;
   border-radius: 50%;
+}
+
+.completed-level {
+  border-color: gold;
+  color: gold;
+}
+
+.next-level {
+  border-color: aqua;
+  color: white;
 }
 
 .next-level-button {
@@ -186,11 +201,11 @@ text {
   background-color: rgba(50, 50, 50, 0.2);
   text-transform: uppercase;
 }
-.zone {
+/*.zone {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-}
+}*/
 
 .completed {
 }
