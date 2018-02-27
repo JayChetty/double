@@ -32,9 +32,8 @@ const createSquares = (number, target, showLevels) => {
           cy={y + size / 2}
           r="17"
           fill="none"
-          stroke="#449281"
+          stroke="#00EEEE"
           strokeWidth="2"
-          opacity={0.5}
         />
       );
     }
