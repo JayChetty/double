@@ -24,6 +24,10 @@ body {
   margin-top: 20px;
 }
 
+.active-move {
+  color: aqua;
+}
+
 /*button {
   margin: 5px;
   padding: 10px;

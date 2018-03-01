@@ -13,15 +13,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      number: 0,
+      number: 1,
       moves: 0,
       levelIndex: 0,
       stalled: false,
       showLevels: false,
-      completedLevels: 0
+      completedLevels: 0,
+      moveList: []
     };
     this.playMove = this.playMove.bind(this);
     this.createLevelClickAction = this.createLevelClickAction.bind(this);
+    this.go = this.go.bind(this);
   }
 
   delay(time) {
@@ -39,17 +41,19 @@ class App extends Component {
       await this.delay(2000);
       if (inMinMoves) {
         this.setState({
-          number: 0,
+          number: 1,
           moves: 0,
           stalled: false,
           showLevels: true,
-          completedLevels: this.state.completedLevels + 1
+          completedLevels: this.state.completedLevels + 1,
+          moveList: []
         });
       } else {
         this.setState({
-          number: 0,
+          number: 1,
           moves: 0,
-          stalled: false
+          stalled: false,
+          moveList: []
         });
       }
     });
@@ -61,7 +65,7 @@ class App extends Component {
     return { target, best: bestScores[target].best };
   }
 
-  playMove(operation) {
+  doMove(operation) {
     return a => {
       const currentNumber = this.state.number;
       let newNumber;
@@ -94,9 +98,30 @@ class App extends Component {
     };
   }
 
+  playMove(operation) {
+    return _ => {
+      this.setState({
+        moveList: [...this.state.moveList, operation]
+      });
+    };
+  }
+
   createLevelClickAction(index) {
     return levelIndex =>
       this.setState({ levelIndex: index, showLevels: false });
+  }
+
+  async go() {
+    const { moveList } = this.state;
+    for (var i = 0; i < moveList.length; i++) {
+      this.doMove(moveList[i])();
+      await this.delay(1500);
+    }
+    // moveList.forEach(async move => {
+    //   await this.delay(2000);
+    //   console.log("await", move);
+    //   this.doMove(move)();
+    // });
   }
 
   render() {
@@ -106,7 +131,8 @@ class App extends Component {
       showLevels,
       completedLevels,
       moves,
-      levelIndex
+      levelIndex,
+      moveList
     } = this.state;
     const { target, best } = this.level();
 
@@ -132,11 +158,25 @@ class App extends Component {
       />
     );
 
+    const moveItems = moveList.map((move, index) => {
+      const isActive = index == moves - 1;
+      const classes = isActive ? "active-move" : null;
+      return (
+        <div className={classes} key={index}>
+          {move}
+        </div>
+      );
+    });
+
+    const moveEl = <div>{moveItems}</div>;
+
     return (
       <div className="App">
         {/* <Feedback moves={moves} atTarget={target === number} minMoves={best} /> */}
         {levelView}
         {grid}
+        <button onClick={this.go} />
+        {moveEl}
         {controls}
       </div>
     );
