@@ -6,7 +6,8 @@ import Feedback from "./components/Feedback";
 import NextLevelButton from "./components/NextLevelButton";
 import LevelView from "./components/LevelView";
 import bestScores from "./data/levels";
-
+import { sequanceArray } from "./components/Grid";
+import icons from "./components/icons";
 const levels = [4, 6, 8, 5, 10, 12, 7, 14, 15, 9, 16, 11, 18, 19, 13, 20];
 
 class App extends Component {
@@ -137,7 +138,15 @@ class App extends Component {
     const { target, best } = this.level();
 
     const controls = showLevels ? null : (
-      <Controls stalled={stalled} number={number} playMove={this.playMove} />
+      <Controls
+        stalled={stalled}
+        number={number}
+        playMove={this.playMove}
+        best={best}
+        moveList={moveList}
+        moves={moves}
+        go={this.go}
+      />
     );
     const levelView = (
       <LevelView
@@ -158,25 +167,29 @@ class App extends Component {
       />
     );
 
-    const moveItems = moveList.map((move, index) => {
-      const isActive = index == moves - 1;
-      const classes = isActive ? "active-move" : null;
-      return (
-        <div className={classes} key={index}>
-          {move}
-        </div>
-      );
-    });
+    // const moveItems = moveList.map((move, index) => {
+    //   const isActive = index == moves - 1;
+    //   const classes = isActive ? "active-move" : null;
+    //   return (
+    //     <div className={classes} key={index}>
+    //       {move}
+    //     </div>
+    //   );
+    // });
 
-    const moveEl = <div>{moveItems}</div>;
-
+    // const moveEl = <div>{moveItems}</div>;
+    //
+    // const controlButton =
+    //   best === moveList.length ? (
+    //     <button onClick={this.go}> go </button>
+    //   ) : (
+    //     controls
+    //   );
     return (
       <div className="App">
         {/* <Feedback moves={moves} atTarget={target === number} minMoves={best} /> */}
         {levelView}
         {grid}
-        <button onClick={this.go} />
-        {moveEl}
         {controls}
       </div>
     );

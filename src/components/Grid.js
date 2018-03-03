@@ -3,7 +3,7 @@ import React from "react";
 const offsetX = 10;
 const offsetY = 10;
 
-const sequanceArray = size => {
+export const sequanceArray = size => {
   return Array.from(Array(size).keys());
 };
 
