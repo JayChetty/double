@@ -8,15 +8,17 @@ export default function Controls({
   best,
   moveList,
   moves,
-  go
+  go,
+  deleteMove
 }) {
   // const atZero = number === 0;
   const moveItems = sequanceArray(best).map(number => {
     const isActive = number == moves - 1;
-    const classes = isActive ? "active-move" : null;
-    const move = moveList[number] || "not set";
+    const activeClass = isActive ? "active-move" : null;
+    const move = moveList[number] || null;
+    const definedClass = move ? "defined-move" : null;
     return (
-      <div className={`move-piece ${classes}`} key={number}>
+      <div className={`move-piece ${activeClass} ${definedClass}`} key={number}>
         {icons[move]}
       </div>
     );
@@ -48,6 +50,15 @@ export default function Controls({
     </div>
   );
 
+  const deleteButton = (
+    <button className="tiny" onClick={deleteMove}>
+      {"clear"}
+    </button>
+  );
+
+  const moveItemsWithDelete =
+    moveList.length > 0 ? [...moveItems, deleteButton] : moveItems;
+
   const goButton = (
     <button className="button" onClick={go}>
       {" "}
@@ -58,7 +69,7 @@ export default function Controls({
   const controls = best === moveList.length ? goButton : placeButtons;
   return (
     <div className="controls">
-      <div className="move-display">{moveItems}</div>
+      <div className="move-display">{moveItemsWithDelete}</div>
       <div className="buttons">{controls}</div>
     </div>
   );

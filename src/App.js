@@ -25,6 +25,7 @@ class App extends Component {
     this.playMove = this.playMove.bind(this);
     this.createLevelClickAction = this.createLevelClickAction.bind(this);
     this.go = this.go.bind(this);
+    this.deleteMove = this.deleteMove.bind(this);
   }
 
   delay(time) {
@@ -118,6 +119,13 @@ class App extends Component {
       this.setState({ levelIndex: index, showLevels: false });
   }
 
+  deleteMove() {
+    console.log("deletemove");
+    this.setState({
+      moveList: []
+    });
+  }
+
   async go() {
     const { moveList, moves } = this.state;
     if (moves > 0) {
@@ -155,6 +163,7 @@ class App extends Component {
         moveList={moveList}
         moves={moves}
         go={this.go}
+        deleteMove={this.deleteMove}
       />
     );
     const levelView = (
