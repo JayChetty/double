@@ -103,6 +103,10 @@ class App extends Component {
 
   playMove(operation) {
     return _ => {
+      const { best } = this.level();
+      if (this.state.moveList.length === best) {
+        return;
+      }
       this.setState({
         moveList: [...this.state.moveList, operation]
       });
@@ -115,7 +119,10 @@ class App extends Component {
   }
 
   async go() {
-    const { moveList } = this.state;
+    const { moveList, moves } = this.state;
+    if (moves > 0) {
+      return;
+    }
     for (var i = 0; i < moveList.length; i++) {
       this.doMove(moveList[i])();
       await this.delay(1500);
