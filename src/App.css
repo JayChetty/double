@@ -237,3 +237,21 @@ text {
   text-align: center;
   padding-top: 5px;
 }
+
+.move-display {
+  display: flex;
+  flex-direction: row;
+}
+
+.move-piece {
+  width: 32px;
+  height: 32px;
+  border: 1px solid black;
+  border-radius: 100%;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

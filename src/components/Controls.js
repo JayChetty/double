@@ -16,7 +16,7 @@ export default function Controls({
     const classes = isActive ? "active-move" : null;
     const move = moveList[number] || "not set";
     return (
-      <div className={classes} key={number}>
+      <div className={`move-piece ${classes}`} key={number}>
         {icons[move]}
       </div>
     );
@@ -29,31 +29,36 @@ export default function Controls({
         className="button"
         onClick={playMove("removeOne")}
       >
-        -
+        {icons["removeOne"]}
       </button>
       <button
         disabled={stalled}
         className="button"
         onClick={playMove("double")}
       >
-        x
+        {icons["double"]}
       </button>
       <button
         disabled={stalled}
         className="button"
         onClick={playMove("addOne")}
       >
-        +
+        {icons["addOne"]}
       </button>
     </div>
   );
 
-  const goButton = <button onClick={go}> go </button>;
+  const goButton = (
+    <button className="button" onClick={go}>
+      {" "}
+      go{" "}
+    </button>
+  );
 
   const controls = best === moveList.length ? goButton : placeButtons;
   return (
     <div className="controls">
-      <div className="moves">{moveItems}</div>
+      <div className="move-display">{moveItems}</div>
       <div className="buttons">{controls}</div>
     </div>
   );

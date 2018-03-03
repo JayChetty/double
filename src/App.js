@@ -33,14 +33,15 @@ class App extends Component {
     });
   }
 
-  reachedTarget() {
-    const { best } = this.level();
-    const { moves } = this.state;
-    const inMinMoves = best === moves;
+  doneMoves() {
+    const { target, best } = this.level();
+    const { moves, number } = this.state;
+    const atTarget = number === target;
+    // const inMinMoves = best === moves;
     console.log("best moves", best, moves);
     this.setState({ stalled: true }, async () => {
       await this.delay(2000);
-      if (inMinMoves) {
+      if (atTarget) {
         this.setState({
           number: 1,
           moves: 0,
@@ -67,6 +68,7 @@ class App extends Component {
   }
 
   doMove(operation) {
+    const { best } = this.level();
     return a => {
       const currentNumber = this.state.number;
       let newNumber;
@@ -91,9 +93,9 @@ class App extends Component {
         },
         () => {
           const target = this.level().target;
-          const atTarget = newNumber === target;
 
-          atTarget && this.reachedTarget();
+          const doneMoves = this.state.moves === best;
+          doneMoves && this.doneMoves();
         }
       );
     };
