@@ -51,7 +51,7 @@ export default function Controls({
   );
 
   const deleteButton = (
-    <button className="tiny" onClick={deleteMove}>
+    <button className="clear-button" onClick={deleteMove}>
       {"clear"}
     </button>
   );
