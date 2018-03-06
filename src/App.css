@@ -94,7 +94,7 @@ circle {
   }
 }
 
-.completed {
+/* .completed {
   animation: Square-Change-Completed 1.2s linear;
   animation-fill-mode: forwards;
 }
@@ -102,27 +102,11 @@ circle {
 .level-completed {
   animation: Square-Change-Completed 1.2s linear;
   animation-fill-mode: forwards;
-}
+} */
 
 text {
   animation: Text-appear 1 0.6s ease;
   animation-fill-mode: forwards;
-}
-
-@keyframes Square-Change-Completed {
-  50% {
-    transform: rotate(60deg);
-  }
-  75% {
-    transform: rotate(40deg);
-  }
-  85% {
-    transform: rotate(50deg);
-  }
-  100% {
-    transform: rotate(45deg);
-    fill: gold;
-  }
 }
 
 .buttons {
@@ -132,19 +116,22 @@ text {
   align-items: flex-end;
   padding: 5px;
   margin: 15px;
+
   /*border: 1px solid #999;*/
   /*border-radius: 20px;*/
 }
 
 .button {
   border-radius: 100%;
-  border: 1px #cccccc solid;
+  /* border: 1px #cccccc solid; */
   font-size: 32px;
-  width: 80px;
-  height: 80px;
-  color: #888888;
+  width: 60px;
+  height: 60px;
+  fill: white;
   margin: 15px;
-  background-color: white;
+  /* background-color: #555555; */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 .levels {

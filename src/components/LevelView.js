@@ -38,11 +38,8 @@ export default function LevelView({
   const showClass = show ? "show" : null;
   const classes = `levels ${showClass}`;
   return (
-    <div className={classes}>
-      <div className="level-wrapper">
-        {levelItems}
-        <NextLevelButton goToNextLevel={goToNextLevel} />
-      </div>
+    <div className={classes} onClick={goToNextLevel}>
+      <div className="level-wrapper">{levelItems}</div>
     </div>
   );
   // return <div className={classes}>LEVELs</div>;

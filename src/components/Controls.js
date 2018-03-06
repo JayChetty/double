@@ -56,8 +56,7 @@ export default function Controls({
     </button>
   );
 
-  const moveItemsWithDelete =
-    moveList.length > 0 ? [...moveItems, deleteButton] : moveItems;
+  const maybeDeleteButton = moveList.length > 0 ? deleteButton : null;
 
   const goButton = (
     <button className="button" onClick={go}>
@@ -69,7 +68,8 @@ export default function Controls({
   const controls = best === moveList.length ? goButton : placeButtons;
   return (
     <div className="controls">
-      <div className="move-display">{moveItemsWithDelete}</div>
+      {maybeDeleteButton}
+      <div className="move-display">{moveItems}</div>
       <div className="buttons">{controls}</div>
     </div>
   );
