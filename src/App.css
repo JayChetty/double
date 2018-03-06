@@ -17,12 +17,12 @@ body {
 
 .grid {
   margin: auto;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
-.buttons {
+/* .buttons {
   margin-top: 20px;
-}
+} */
 
 .move-piece.defined-move.active-move {
   background-color: #c2c2e7;
@@ -118,7 +118,7 @@ text {
   justify-content: space-between;
   align-items: flex-end;
   padding: 5px;
-  margin: 15px;
+  /* margin: 15px; */
   /* width: 100%; */
 }
 
