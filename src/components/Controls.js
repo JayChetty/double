@@ -58,9 +58,11 @@ export default function Controls({
 
   const maybeDeleteButton = moveList.length > 0 ? deleteButton : null;
 
+  const goDisabledClass = moves > 0 ? "disabled" : null;
+
   const goButton = (
     <div className="buttons">
-      <button className="button" onClick={go}>
+      <button className={`button ${goDisabledClass}`} onClick={go}>
         <span className="go-text">go</span>
       </button>
     </div>

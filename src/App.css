@@ -92,7 +92,8 @@ circle {
   }
   100% {
     transform: rotate(45deg);
-    fill: #aaaaaa;
+    /* fill: #aaaaaa; */
+    fill: #c2c2e7;
   }
 }
 
@@ -124,7 +125,7 @@ text {
 .button {
   border-radius: 100%;
   border: 2px #c2c2e7 solid;
-  font-size: 32px;
+  font-size: 26px;
   width: 60px;
   height: 60px;
   /* fill: #c2c2e7; */
@@ -237,14 +238,24 @@ text {
 .move-piece {
   width: 32px;
   height: 32px;
-  border: 1px dashed #999;
+  /* border: 1px dashed #c2c2e7; */
+  border: 3px dashed #ccc;
+  /* fill: #c2c2e7; */
   border-radius: 100%;
-  margin: 2px;
+  margin: 3px;
 }
 
 .move-piece.defined-move {
-  border: 1px solid #999;
-  fill: #999;
+  border: 3px solid #c2c2e7;
+  fill: #c2c2e7;
+  /* border: 1px solid #999;
+  fill: #999; */
+}
+
+.button.disabled {
+  background: #ccc;
+  border-color: #ccc;
+  color: #ddd;
 }
 
 .controls {
