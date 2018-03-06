@@ -13,7 +13,7 @@ export default function Controls({
 }) {
   // const atZero = number === 0;
   const moveItems = sequanceArray(best).map(number => {
-    const isActive = number == moves - 1;
+    const isActive = number === moves - 1;
     const activeClass = isActive ? "active-move" : null;
     const move = moveList[number] || null;
     const definedClass = move ? "defined-move" : null;
@@ -59,10 +59,11 @@ export default function Controls({
   const maybeDeleteButton = moveList.length > 0 ? deleteButton : null;
 
   const goButton = (
-    <button className="button" onClick={go}>
-      {" "}
-      go{" "}
-    </button>
+    <div className="buttons">
+      <button className="button" onClick={go}>
+        <span className="go-text">go</span>
+      </button>
+    </div>
   );
 
   const controls = best === moveList.length ? goButton : placeButtons;
