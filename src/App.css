@@ -17,7 +17,7 @@ body {
 
 .grid {
   margin: auto;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .buttons {
@@ -144,7 +144,7 @@ text {
 
 .clear-button {
   margin: 6px;
-  /* border: 1px #c2c2e7 solid; */
+  border: none;
   border-radius: 8px;
   background-color: #c2c2e7;
   color: white;
