@@ -21,7 +21,7 @@ class App extends Component {
       levelIndex: 0,
       target: 2,
       stalled: false,
-      showLevels: false,
+      showLevels: true,
       completedLevels: [1],
       moveList: []
     };
@@ -165,7 +165,7 @@ class App extends Component {
     } = this.state;
     const best = bestScores[this.state.target];
 
-    const controls = showLevels ? null : (
+    const controls = (
       <Controls
         stalled={stalled}
         number={number}
@@ -175,6 +175,8 @@ class App extends Component {
         moves={moves}
         go={this.go}
         deleteMove={this.deleteMove}
+        showLevels={showLevels}
+        playLevel={this.playLevel}
       />
     );
 

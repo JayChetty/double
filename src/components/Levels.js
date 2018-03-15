@@ -20,16 +20,22 @@ const createSquares = (target, completedLevels) => {
 
     let targetCircle = null;
     let tick = null;
-    if (completedLevels.some(completed => completed - 1 === squareNumber)) {
+    const completed = completedLevels.some(
+      completed => completed - 1 === squareNumber
+    );
+    if (completed) {
       tick = (
-        <circle
-          cx={x + size / 2}
-          cy={y + size / 2}
-          r="17"
-          fill="none"
-          stroke="#111111"
-          strokeWidth="2"
-        />
+        <svg
+          fill="#c2c2e7"
+          width={size}
+          height={size}
+          x={x}
+          y={y}
+          viewBox="0 0 1792 1792"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M1671 566q0 40-28 68l-724 724-136 136q-28 28-68 28t-68-28l-136-136-362-362q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295 656-657q28-28 68-28t68 28l136 136q28 28 28 68z" />
+        </svg>
       );
     }
     if (squareNumber === target - 1) {
@@ -45,23 +51,25 @@ const createSquares = (target, completedLevels) => {
       );
     }
 
-    // if (squareNumber === number - 1) {
-    //   let xTextAdjust = 5;
-    //   let textSize = 15;
-    //   if (number >= 10) {
-    //     xTextAdjust = 8;
-    //     textSize = 13;
-    //   }
-    //   text = (
-    //     <text
-    //       x={x + size / 2 - xTextAdjust}
-    //       y={y + size / 2 + 5}
-    //       fontFamily="Verdana"
-    //       fontSize={textSize}
-    //     >
-    //       {number}
-    //     </text>
-    //   );
+    if (squareNumber === target - 1 || completed) {
+      let xTextAdjust = 4;
+      let textSize = 13;
+      if (squareNumber >= 10) {
+        xTextAdjust = 8;
+        textSize = 13;
+      }
+      text = (
+        <text
+          x={x + size / 2 - xTextAdjust}
+          y={y + size / 2 + 5}
+          fontFamily="Verdana"
+          fontSize={textSize}
+          fill="#fff"
+        >
+          {squareNumber + 1}
+        </text>
+      );
+    }
     // }
     return (
       <g key={squareNumber}>
@@ -78,8 +86,8 @@ const createSquares = (target, completedLevels) => {
           ry={1}
         />
         {targetCircle}
+        {text}
         {tick}
-        {null}
       </g>
     );
   });

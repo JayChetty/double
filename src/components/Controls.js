@@ -9,7 +9,9 @@ export default function Controls({
   moveList,
   moves,
   go,
-  deleteMove
+  deleteMove,
+  showLevels,
+  playLevel
 }) {
   // const atZero = number === 0;
   const moveItems = sequanceArray(best).map(number => {
@@ -69,11 +71,26 @@ export default function Controls({
   );
 
   const controls = best === moveList.length ? goButton : placeButtons;
-  return (
+
+  const levelControls = (
+    <div className="controls">
+      <div className="buttons">
+        <button className={`button`} onClick={playLevel}>
+          <span className="go-text">play</span>
+        </button>
+      </div>
+    </div>
+  );
+
+  const mainControls = (
     <div className="controls">
       {maybeDeleteButton}
       <div className="move-display">{moveItems}</div>
       <div className="buttons">{controls}</div>
     </div>
   );
+
+  const body = showLevels ? levelControls : mainControls;
+
+  return body;
 }
