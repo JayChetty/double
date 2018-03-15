@@ -54,7 +54,7 @@ const createSquares = (target, completedLevels) => {
     if (squareNumber === target - 1 || completed) {
       let xTextAdjust = 4;
       let textSize = 13;
-      if (squareNumber >= 10) {
+      if (squareNumber >= 9) {
         xTextAdjust = 8;
         textSize = 13;
       }
@@ -64,7 +64,7 @@ const createSquares = (target, completedLevels) => {
           y={y + size / 2 + 5}
           fontFamily="Verdana"
           fontSize={textSize}
-          fill="#fff"
+          fill="#858585"
         >
           {squareNumber + 1}
         </text>

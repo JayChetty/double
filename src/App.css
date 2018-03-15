@@ -266,6 +266,10 @@ text {
   fill: #999; */
 }
 
+.button.control {
+  padding-top: 7px;
+}
+
 .button.disabled {
   background: #ccc;
   border-color: #ccc;

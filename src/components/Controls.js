@@ -30,21 +30,21 @@ export default function Controls({
     <div className="buttons">
       <button
         disabled={stalled}
-        className="button"
+        className="button control"
         onClick={playMove("removeOne")}
       >
         {icons["removeOne"]}
       </button>
       <button
         disabled={stalled}
-        className="button"
+        className="button control"
         onClick={playMove("double")}
       >
         {icons["double"]}
       </button>
       <button
         disabled={stalled}
-        className="button"
+        className="button control"
         onClick={playMove("addOne")}
       >
         {icons["addOne"]}
