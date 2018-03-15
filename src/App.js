@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import Grid from "./components/Grid";
+import Levels from "./components/Levels";
+
 import Controls from "./components/Controls";
 import Feedback from "./components/Feedback";
 import NextLevelButton from "./components/NextLevelButton";
@@ -166,16 +168,16 @@ class App extends Component {
         deleteMove={this.deleteMove}
       />
     );
-    const levelView = (
-      <LevelView
-        levels={levels}
-        completedLevels={completedLevels}
-        show={showLevels}
-        goToNextLevel={this.createLevelClickAction(levelIndex + 1)}
-      />
-    );
 
-    const grid = (
+    const grid = showLevels ? (
+      <Levels
+        number={number}
+        target={target}
+        showLevels={showLevels}
+        completedLevels={completedLevels}
+        createLevelClickAction={this.createLevelClickAction}
+      />
+    ) : (
       <Grid
         number={number}
         target={target}
@@ -205,8 +207,6 @@ class App extends Component {
     //   );
     return (
       <div className="App">
-        {/* <Feedback moves={moves} atTarget={target === number} minMoves={best} /> */}
-        {levelView}
         {grid}
         {controls}
       </div>

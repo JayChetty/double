@@ -97,12 +97,26 @@ circle {
   }
 }
 
-/* .completed {
-  animation: Square-Change-Completed 1.2s linear;
-  animation-fill-mode: forwards;
+/* @keyframes Square-Change-Completed {
+  0% {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(90deg);
+  }
+  75% {
+    transform: rotate(180deg);
+  }
+  85% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(405deg);
+    fill: #c2c2e7;
+  }
 }
 
-.level-completed {
+.completed {
   animation: Square-Change-Completed 1.2s linear;
   animation-fill-mode: forwards;
 } */
