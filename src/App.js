@@ -13,12 +13,29 @@ import icons from "./components/icons";
 // const levels = [4, 6, 8, 5, 10, 12, 7, 14, 15, 9, 16, 11, 18, 19, 13, 20];
 
 class App extends Component {
+  getLevels() {
+    const levelString = window.localStorage.getItem("levels");
+    if (!levelString) {
+      return [1];
+    }
+    return JSON.parse(levelString);
+  }
+
+  saveLevels(levels) {
+    window.localStorage.setItem("levels", JSON.stringify(levels));
+  }
+
+  componentDidMount() {
+    const completedLevels = this.getLevels();
+    const lastLevel = completedLevels[completedLevels.length - 1];
+    this.setState({ completedLevels, target: lastLevel + 1 });
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       number: 1,
       moves: 0,
-      levelIndex: 0,
       target: 2,
       stalled: false,
       showLevels: true,
@@ -50,12 +67,14 @@ class App extends Component {
       await this.delay(2000);
       if (atTarget) {
         console.log("at target");
+        const newCompletedLevels = [...completedLevels, target];
+        this.saveLevels(newCompletedLevels);
         this.setState({
           number: 1,
           moves: 0,
           stalled: false,
           showLevels: true,
-          completedLevels: [...completedLevels, target],
+          completedLevels: newCompletedLevels,
           target: target + 1,
           moveList: []
         });
