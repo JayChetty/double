@@ -10,7 +10,7 @@ import LevelView from "./components/LevelView";
 import bestScores from "./data/levels";
 import { sequanceArray } from "./components/Grid";
 import icons from "./components/icons";
-const levels = [4, 6, 8, 5, 10, 12, 7, 14, 15, 9, 16, 11, 18, 19, 13, 20];
+// const levels = [4, 6, 8, 5, 10, 12, 7, 14, 15, 9, 16, 11, 18, 19, 13, 20];
 
 class App extends Component {
   constructor(props) {
@@ -19,15 +19,18 @@ class App extends Component {
       number: 1,
       moves: 0,
       levelIndex: 0,
+      target: 2,
       stalled: false,
       showLevels: false,
-      completedLevels: 0,
+      completedLevels: [1],
       moveList: []
     };
     this.playMove = this.playMove.bind(this);
     this.createLevelClickAction = this.createLevelClickAction.bind(this);
     this.go = this.go.bind(this);
     this.deleteMove = this.deleteMove.bind(this);
+    this.setLevel = this.setLevel.bind(this);
+    this.playLevel = this.playLevel.bind(this);
   }
 
   delay(time) {
@@ -37,20 +40,23 @@ class App extends Component {
   }
 
   doneMoves() {
-    const { target, best } = this.level();
-    const { moves, number } = this.state;
+    const { moves, number, target, completedLevels } = this.state;
+    const best = bestScores[target];
+    console.log("done moves");
     const atTarget = number === target;
     // const inMinMoves = best === moves;
     console.log("best moves", best, moves);
     this.setState({ stalled: true }, async () => {
       await this.delay(2000);
       if (atTarget) {
+        console.log("at target");
         this.setState({
           number: 1,
           moves: 0,
           stalled: false,
           showLevels: true,
-          completedLevels: this.state.completedLevels + 1,
+          completedLevels: [...completedLevels, target],
+          target: target + 1,
           moveList: []
         });
       } else {
@@ -64,14 +70,8 @@ class App extends Component {
     });
   }
 
-  level() {
-    const target = levels[this.state.levelIndex];
-    console.log("leve", { target, best: bestScores[target] });
-    return { target, best: bestScores[target].best };
-  }
-
   doMove(operation) {
-    const { best } = this.level();
+    const best = bestScores[this.state.target];
     return a => {
       const currentNumber = this.state.number;
       let newNumber;
@@ -95,8 +95,8 @@ class App extends Component {
           moves: this.state.moves + 1
         },
         () => {
-          const target = this.level().target;
-
+          const target = this.state.target;
+          console.log("best", best);
           const doneMoves = this.state.moves === best;
           doneMoves && this.doneMoves();
         }
@@ -106,7 +106,7 @@ class App extends Component {
 
   playMove(operation) {
     return _ => {
-      const { best } = this.level();
+      const best = bestScores[this.state.target];
       if (this.state.moveList.length === best) {
         return;
       }
@@ -119,6 +119,14 @@ class App extends Component {
   createLevelClickAction(index) {
     return levelIndex =>
       this.setState({ levelIndex: index, showLevels: false });
+  }
+
+  playLevel() {
+    this.setState({ showLevels: false });
+  }
+
+  setLevel(level) {
+    return () => this.setState({ level: level, showLevels: false });
   }
 
   deleteMove() {
@@ -152,9 +160,10 @@ class App extends Component {
       completedLevels,
       moves,
       levelIndex,
-      moveList
+      moveList,
+      target
     } = this.state;
-    const { target, best } = this.level();
+    const best = bestScores[this.state.target];
 
     const controls = showLevels ? null : (
       <Controls
