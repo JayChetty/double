@@ -58,13 +58,11 @@ export default function Controls({
     </button>
   );
 
-  const maybeDeleteButton = moveList.length > 0 ? deleteButton : null;
+  const maybeDeleteButton =
+    moveList.length > 0 && best !== moveList.length ? deleteButton : null;
 
-  const goDisabledClass = moves > 0 ? "disabled" : null;
-
-  const goButton = null;
-
-  const controls = best === moveList.length ? goButton : placeButtons;
+  const controlsClass = best === moveList.length ? "hidden" : null;
+  // const controls = best === moveList.length ? null : placeButtons;
 
   const levelControls = (
     <div className="controls">
@@ -80,7 +78,7 @@ export default function Controls({
     <div className="controls">
       {maybeDeleteButton}
       <div className="move-display">{moveItems}</div>
-      <div className="buttons">{controls}</div>
+      <div className={`buttons ${controlsClass}`}>{placeButtons}</div>
     </div>
   );
 

@@ -156,6 +156,10 @@ text {
   text-align: center;
 }
 
+.buttons.hidden {
+  visibility: hidden;
+}
+
 .clear-button {
   margin: 6px;
   border: none;
