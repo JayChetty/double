@@ -90,6 +90,7 @@ class App extends Component {
   }
 
   doMove(operation) {
+    console.log("doing move operation", operation);
     const best = bestScores[this.state.target];
     return a => {
       const currentNumber = this.state.number;
@@ -129,9 +130,16 @@ class App extends Component {
       if (this.state.moveList.length === best) {
         return;
       }
-      this.setState({
-        moveList: [...this.state.moveList, operation]
-      });
+      // this.doMove(operation)();
+      this.setState(
+        {
+          moveList: [...this.state.moveList, operation]
+        },
+        () => {
+          this.doMove(operation)();
+          // this.go();
+        }
+      );
     };
   }
 
@@ -151,19 +159,29 @@ class App extends Component {
   deleteMove() {
     console.log("deletemove");
     this.setState({
-      moveList: []
+      moveList: [],
+      number: 1,
+      moves: 0
     });
   }
 
   async go() {
     const { moveList, moves } = this.state;
-    if (moves > 0) {
-      return;
-    }
-    for (var i = 0; i < moveList.length; i++) {
-      this.doMove(moveList[i])();
-      await this.delay(1500);
-    }
+    // if (moves > 0) {
+    //   return;
+    // }
+    this.setState(
+      {
+        number: 1,
+        moves: 0
+      },
+      async () => {
+        for (var i = 0; i < moveList.length; i++) {
+          this.doMove(moveList[i])();
+          await this.delay(15);
+        }
+      }
+    );
     // moveList.forEach(async move => {
     //   await this.delay(2000);
     //   console.log("await", move);

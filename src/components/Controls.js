@@ -62,13 +62,7 @@ export default function Controls({
 
   const goDisabledClass = moves > 0 ? "disabled" : null;
 
-  const goButton = (
-    <div className="buttons">
-      <button className={`button ${goDisabledClass}`} onClick={go}>
-        <span className="go-text">go</span>
-      </button>
-    </div>
-  );
+  const goButton = null;
 
   const controls = best === moveList.length ? goButton : placeButtons;
 
