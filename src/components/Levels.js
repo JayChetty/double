@@ -1,5 +1,5 @@
 import React from "react";
-import Gem from "./Gem";
+import Level from "./Level";
 import "./Levels.css";
 import bestScores from "../data/levels";
 
@@ -38,13 +38,13 @@ const createSquares = (target, completedLevels, clicked) => {
     }
 
     return (
-      <Gem
+      <Level
         squareNumber={squareNumber}
         x={x}
         y={y}
         size={size}
         clicked={clicked}
-        target={target}
+        selected={target === levelOfSquare}
         color={color}
         completed={completed}
       />
