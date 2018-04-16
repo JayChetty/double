@@ -1,5 +1,4 @@
 import React from "react";
-import bestScores from "../data/levels";
 
 export default function Gem({
   x,
@@ -8,28 +7,13 @@ export default function Gem({
   completed,
   target,
   squareNumber,
-  clicked
+  clicked,
+  color
 }) {
   let text = null;
   const className = "gem-holder";
   let targetCircle = null;
-  let tick = null;
 
-  if (completed) {
-    tick = (
-      <svg
-        fill="#c2c2e7"
-        width={size}
-        height={size}
-        x={x}
-        y={y}
-        viewBox="0 0 1792 1792"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M1671 566q0 40-28 68l-724 724-136 136q-28 28-68 28t-68-28l-136-136-362-362q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295 656-657q28-28 68-28t68 28l136 136q28 28 28 68z" />
-      </svg>
-    );
-  }
   if (squareNumber === target - 1) {
     targetCircle = (
       <circle
@@ -63,19 +47,8 @@ export default function Gem({
     );
   }
 
-  const levelOfSquare = squareNumber + 1;
-  let color = "#EEEEEE";
-  console.log("color", bestScores[levelOfSquare]);
-  if (bestScores[levelOfSquare] > 7) {
-    color = "#FF0000";
-  } else if (bestScores[levelOfSquare] > 5) {
-    color = "#00FF00";
-  } else if (bestScores[levelOfSquare] > 3) {
-    color = "#0000FF";
-  }
-
   return (
-    <g key={squareNumber} onClick={clicked(levelOfSquare)}>
+    <g key={squareNumber} onClick={clicked(squareNumber + 1)}>
       <rect
         className={className}
         x={x}
