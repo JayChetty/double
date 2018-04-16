@@ -189,6 +189,11 @@ class App extends Component {
     // });
   }
 
+  updateTarget = target => {
+    console.log("updating target", target);
+    this.setState({ target });
+  };
+
   render() {
     const {
       stalled,
@@ -224,6 +229,7 @@ class App extends Component {
         showLevels={showLevels}
         completedLevels={completedLevels}
         createLevelClickAction={this.createLevelClickAction}
+        updateTarget={this.updateTarget}
       />
     ) : (
       <Grid

@@ -1,5 +1,6 @@
 import React from "react";
 import bestScores from "../data/levels";
+import "./Levels.css";
 const offsetX = 10;
 const offsetY = 10;
 
@@ -7,13 +8,13 @@ export const sequanceArray = size => {
   return Array.from(Array(size).keys());
 };
 
-const levels = [{ threshold: 3 }, { threshold: 5 }, { threshold: 7 }];
+const levels = [3, 5, 6];
 
 const colorForLevel = level => {};
 
-const createSquares = (target, completedLevels) => {
+const createSquares = (target, completedLevels, clicked) => {
   return sequanceArray(100).map(squareNumber => {
-    let className = "";
+    const className = "gem-holder";
     const size = 20;
     const margin = 8;
     const rowNumber = Math.floor(squareNumber / 10);
@@ -55,12 +56,12 @@ const createSquares = (target, completedLevels) => {
       );
     }
 
-    if (squareNumber === target - 1 || completed) {
-      let xTextAdjust = 4;
-      let textSize = 13;
+    if (squareNumber === target - 1) {
+      let xTextAdjust = 3;
+      let textSize = 11;
       if (squareNumber >= 9) {
         xTextAdjust = 8;
-        textSize = 13;
+        textSize = 11;
       }
       text = (
         <text
@@ -87,29 +88,31 @@ const createSquares = (target, completedLevels) => {
     }
 
     return (
-      <g key={squareNumber}>
+      <g key={squareNumber} onClick={clicked(levelOfSquare)}>
         <rect
           className={className}
           x={x}
           y={y}
           transform-origin={`${x + size / 2}px ${y + size / 2}px`}
-          width={size}
-          height={size}
-          fill={color}
+          width={size - 2}
+          height={size - 2}
+          fill={completed ? color : "#FFFFFF"}
           stroke={color}
           rx={1}
           ry={1}
         />
         {targetCircle}
         {text}
-        {tick}
+        {/* {tick} */}
       </g>
     );
   });
 };
 
-export default function Levels({ target, completedLevels }) {
-  const rects = createSquares(target, completedLevels);
+export default function Levels({ target, completedLevels, updateTarget }) {
+  const clicked = newTarget => () => updateTarget(newTarget);
+
+  const rects = createSquares(target, completedLevels, clicked);
   return (
     <svg className="grid" width="300" height="300">
       {rects}
