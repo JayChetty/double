@@ -1,11 +1,15 @@
 import React from "react";
-
+import bestScores from "../data/levels";
 const offsetX = 10;
 const offsetY = 10;
 
 export const sequanceArray = size => {
   return Array.from(Array(size).keys());
 };
+
+const levels = [{ threshold: 3 }, { threshold: 5 }, { threshold: 7 }];
+
+const colorForLevel = level => {};
 
 const createSquares = (target, completedLevels) => {
   return sequanceArray(100).map(squareNumber => {
@@ -70,7 +74,18 @@ const createSquares = (target, completedLevels) => {
         </text>
       );
     }
-    // }
+
+    const levelOfSquare = squareNumber + 1;
+    let color = "#EEEEEE";
+    console.log("color", bestScores[levelOfSquare]);
+    if (bestScores[levelOfSquare] > 7) {
+      color = "#FF0000";
+    } else if (bestScores[levelOfSquare] > 5) {
+      color = "#00FF00";
+    } else if (bestScores[levelOfSquare] > 3) {
+      color = "#0000FF";
+    }
+
     return (
       <g key={squareNumber}>
         <rect
@@ -80,8 +95,8 @@ const createSquares = (target, completedLevels) => {
           transform-origin={`${x + size / 2}px ${y + size / 2}px`}
           width={size}
           height={size}
-          fill="#EEEEEE"
-          stroke="#EEEEEE"
+          fill={color}
+          stroke={color}
           rx={1}
           ry={1}
         />
