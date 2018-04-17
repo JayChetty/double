@@ -1,4 +1,6 @@
 import React from "react";
+import Stone from "./Stone";
+import Gem from "./Gem";
 
 const offsetX = 10;
 const offsetY = 10;
@@ -77,24 +79,15 @@ const createSquares = (number, target, showLevels) => {
         </text>
       );
     }
+    console.log({ size, x, y });
 
     return (
-      <g key={squareNumber}>
-        <rect
-          className={className}
-          x={x}
-          y={y}
-          transform-origin={`${x + size / 2}px ${y + size / 2}px`}
-          width={size}
-          height={size}
-          fill="#EEEEEE"
-          stroke="#EEEEEE"
-          rx={1}
-          ry={1}
-        />
-        {targetCircle}
+      <svg key={squareNumber} x={x} y={y} width={size} height={size}>
+        <Stone size={size} />
+        {/* <Gem size={size} color="#333333" /> */}
+        {/* {targetCircle} */}
         {text}
-      </g>
+      </svg>
     );
   });
 };
