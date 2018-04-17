@@ -22,8 +22,8 @@ export default function Level({
     }
     text = (
       <text
-        x={x + size / 2 - xTextAdjust}
-        y={y + size / 2 + 3}
+        // x={x + size / 2 - xTextAdjust}
+        // y={y + size / 2 + 3}
         fontFamily="Verdana"
         fontSize={textSize}
         fill="#FFFFFF"
@@ -33,30 +33,32 @@ export default function Level({
     );
   }
 
+  const hlfSize = size / 2;
   const levelIcon = completed ? (
     <Gem x={x} y={y} color={color} size={size} />
   ) : (
-    <rect
-      className={className}
-      x={x}
-      y={y}
-      transform-origin={`${x + size / 2}px ${y + size / 2}px`}
-      width={size - 2}
-      height={size - 2}
-      fill={selected ? color : "#FFFFFF"}
-      stroke={color}
-      // stroke-dasharray="1,1"
-      rx={1}
-      ry={1}
-    />
+    <g>
+      <path
+        d={`M ${hlfSize} 0 L ${size} ${hlfSize} L ${hlfSize} ${size} L 0 ${hlfSize} Z`}
+        fill={selected ? color : "#FFFFFF"}
+        stroke={color}
+      />
+    </g>
   );
 
   return (
-    <g key={squareNumber} onClick={clicked(squareNumber + 1)}>
+    <svg
+      key={squareNumber}
+      onClick={clicked(squareNumber + 1)}
+      x={x}
+      y={y}
+      width={size}
+      height={size}
+    >
       {levelIcon}
       {/* {targetCircle} */}
       {text}
       {/* {tick} */}
-    </g>
+    </svg>
   );
 }

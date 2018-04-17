@@ -2,17 +2,13 @@ import React from "react";
 import "./Gem.css";
 
 export default function Gem({ x, y, size, color }) {
-  console.log({ x, y, size });
-  const cX = x + size / 2;
-  const cY = y + size / 2;
-
+  const hlfSize = size / 2;
   return (
     <g>
       <path
-        d={`M ${x} ${y} L ${cX} ${cY}`}
+        d={`M ${hlfSize} 0 L ${size} ${hlfSize} L ${hlfSize} ${size} L 0 ${hlfSize} Z`}
+        fill={color}
         stroke={color}
-        stroke-width="1"
-        fill="none"
       />
       {/* <rect
         className="gem gem-inner"
