@@ -12,9 +12,12 @@ export const sequanceArray = size => {
 const createSquares = (number, target, showLevels) => {
   return sequanceArray(100).map(squareNumber => {
     let className = "";
+    const selected = number === squareNumber + 1;
+    const atTarget = target === squareNumber + 1;
     if (number > squareNumber) {
       className = "action";
     }
+
     if (number === target && squareNumber === target - 1) {
       className = className + " completed";
     }
@@ -83,7 +86,12 @@ const createSquares = (number, target, showLevels) => {
 
     return (
       <svg key={squareNumber} x={x} y={y} width={size} height={size}>
-        <Stone size={size} />
+        <Stone
+          size={size}
+          selected={selected}
+          target={atTarget}
+          targetColor={"#FF0000"}
+        />
         {/* <Gem size={size} color="#333333" /> */}
         {/* {targetCircle} */}
         {text}
@@ -100,3 +108,8 @@ export default function Grid({ number, target, showLevels }) {
     </svg>
   );
 }
+//     <svg className="grid" width="300" height="300">
+//       {rects}
+//     </svg>
+//   );
+// }

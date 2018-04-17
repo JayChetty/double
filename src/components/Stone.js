@@ -1,5 +1,6 @@
 import React from "react";
 // import "./Gem.css";
+import { pure } from "recompose";
 
 function randomLine(start, end, numStops, range) {
   const xDiff = end.x - start.x;
@@ -29,7 +30,7 @@ function lineAsD(path) {
   return stringList.join(" ");
 }
 
-export default function Stone({ size }) {
+function Stone({ size, selected, target }) {
   const noiseRange = 2;
   const topLeft = { x: noiseRange, y: noiseRange };
   const topRight = { x: size - noiseRange, y: noiseRange };
@@ -42,7 +43,6 @@ export default function Stone({ size }) {
   const bottomLine = randomLine(bottomRight, bottomLeft, 2, noiseRange);
   const leftLine = randomLine(bottomLeft, topLeft, 2, noiseRange);
 
-  console.log({ topLine, rightLine, bottomLine, leftLine });
   const pathCoords = [...topLine, ...rightLine, ...bottomLine, ...leftLine];
 
   // console.log({ pathCoords });
@@ -62,39 +62,55 @@ export default function Stone({ size }) {
   const innerBottomLeft = `${gap} ${size - gap}`;
 
   const opacity = Math.max(Math.random() / 2, 0.2);
-  return (
-    <g>
-      <path d={d} fill={color} stroke="black" fill-opacity={opacity} />
-      {/* <path
-        d={`M ${outerTopLeft} L ${outerTopRight} L ${innerTopRight} L ${innerTopLeft} Z`}
-        fill={color}
-        stroke={color}
-        opacity="0.1"
-      />
-      <path
-        d={`M ${outerTopRight} L ${outerBottomRight} L ${innerBottomRight} L ${innerTopRight} Z`}
-        fill={color}
-        stroke={color}
-        opacity="0.4"
-      />
-      <path
-        d={`M ${innerBottomRight} L ${outerBottomRight} L ${outerBottomLeft} L ${innerBottomLeft} Z`}
-        fill={color}
-        stroke={color}
-        opacity="0.5"
-      />
-      <path
-        d={`M ${outerTopLeft} L ${outerBottomLeft} L ${innerBottomLeft} L ${innerTopLeft} Z`}
-        fill={color}
-        stroke={color}
-        opacity="0.6"
-      />
-      <path
-        d={`M ${innerTopLeft} L ${innerTopRight} L ${innerBottomRight} L ${innerBottomLeft} Z`}
-        fill={color}
-        stroke={color}
-        opacity="0.2"
-      /> */}
-    </g>
+
+  // const polishedStone = (
+  //   <g>
+  //     <path
+  //       d={`M ${outerTopLeft} L ${outerTopRight} L ${innerTopRight} L ${innerTopLeft} Z`}
+  //       fill={color}
+  //       stroke={color}
+  //       opacity="0.1"
+  //     />
+  //     <path
+  //       d={`M ${outerTopRight} L ${outerBottomRight} L ${innerBottomRight} L ${innerTopRight} Z`}
+  //       fill={color}
+  //       stroke={color}
+  //       opacity="0.4"
+  //     />
+  //     <path
+  //       d={`M ${innerBottomRight} L ${outerBottomRight} L ${outerBottomLeft} L ${innerBottomLeft} Z`}
+  //       fill={color}
+  //       stroke={color}
+  //       opacity="0.5"
+  //     />
+  //     <path
+  //       d={`M ${outerTopLeft} L ${outerBottomLeft} L ${innerBottomLeft} L ${innerTopLeft} Z`}
+  //       fill={color}
+  //       stroke={color}
+  //       opacity="0.6"
+  //     />
+  //     <path
+  //       d={`M ${innerTopLeft} L ${innerTopRight} L ${innerBottomRight} L ${innerBottomLeft} Z`}
+  //       fill={color}
+  //       stroke={color}
+  //       opacity="0.2"
+  //     />
+  //   </g>
+  // );
+
+  const strokeColor = target ? "#0F52BA" : "black";
+  const strokeWidth = target ? 2 : 1;
+
+  const rock = (
+    <path
+      d={d}
+      fill={color}
+      stroke={strokeColor}
+      fill-opacity={opacity}
+      strokeWidth={strokeWidth}
+    />
   );
+  return rock;
 }
+
+export default pure(Stone);
