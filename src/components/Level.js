@@ -42,6 +42,7 @@ export default function Level({
         d={`M ${hlfSize} 0 L ${size} ${hlfSize} L ${hlfSize} ${size} L 0 ${hlfSize} Z`}
         fill={selected ? color : "#FFFFFF"}
         stroke={color}
+        fill-opacity="0.6"
       />
     </g>
   );

@@ -47,30 +47,6 @@ export default function Gem({ size, color }) {
         stroke={color}
         opacity="0.25"
       />
-      {/* <rect
-        className="gem gem-inner"
-        x={x + size / 4}
-        y={y + size / 4}
-        transform-origin={`${x + size / 2}px ${y + size / 2}px`}
-        width={size / 2}
-        height={size / 2}
-        fill={color}
-        stroke={color}
-        rx={1}
-        ry={1}
-      />
-      <rect
-        className="gem gem-outer"
-        x={x}
-        y={y}
-        transform-origin={`${x + size / 2}px ${y + size / 2}px`}
-        width={size - 2}
-        height={size - 2}
-        fill={color}
-        stroke={color}
-        rx={1}
-        ry={1}
-      /> */}
     </g>
   );
 }

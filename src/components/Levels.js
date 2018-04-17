@@ -16,8 +16,8 @@ const colorForLevel = level => {};
 
 const createSquares = (target, completedLevels, clicked) => {
   return sequanceArray(100).map(squareNumber => {
-    const size = 20;
-    const margin = 8;
+    const size = 22;
+    const margin = 6;
     const rowNumber = Math.floor(squareNumber / 10);
     const colNumber = Math.floor(squareNumber % 10);
     const x = size * colNumber + margin * colNumber + offsetX;
