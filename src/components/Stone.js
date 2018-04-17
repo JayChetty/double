@@ -61,9 +61,10 @@ export default function Stone({ size }) {
   const innerBottomRight = `${size - gap} ${size - gap}`;
   const innerBottomLeft = `${gap} ${size - gap}`;
 
+  const opacity = Math.max(Math.random() / 2, 0.2);
   return (
     <g>
-      <path d={d} fill={color} stroke="black" fill-opacity="0.1" />
+      <path d={d} fill={color} stroke="black" fill-opacity={opacity} />
       {/* <path
         d={`M ${outerTopLeft} L ${outerTopRight} L ${innerTopRight} L ${innerTopLeft} Z`}
         fill={color}
