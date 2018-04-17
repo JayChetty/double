@@ -45,6 +45,7 @@ export default function Level({
       height={size - 2}
       fill={selected ? color : "#FFFFFF"}
       stroke={color}
+      // stroke-dasharray="1,1"
       rx={1}
       ry={1}
     />

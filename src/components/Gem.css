@@ -1,3 +1,7 @@
 .gem {
-  transform: rotate(0.125turn);
+  /* transform: rotate(0.125turn); */
+}
+
+.gem-outer {
+  opacity: 0.2;
 }
