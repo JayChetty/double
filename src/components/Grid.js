@@ -13,7 +13,8 @@ const createSquares = (number, target, showLevels) => {
   return sequanceArray(100).map(squareNumber => {
     let className = "";
     const selected = number === squareNumber + 1;
-    const atTarget = target === squareNumber + 1;
+    const isTarget = target === squareNumber + 1;
+    const completed = number === target;
     if (number > squareNumber) {
       className = "action";
     }
@@ -87,8 +88,9 @@ const createSquares = (number, target, showLevels) => {
         <Stone
           size={size}
           selected={selected}
-          target={atTarget}
+          isTarget={isTarget}
           targetColor={"#FF0000"}
+          completed={completed}
         />
         {/* <Gem size={size} color="#333333" /> */}
         {/* {targetCircle} */}

@@ -24,20 +24,32 @@ function randomLine(start, end, numStops, range) {
 }
 
 function lineAsD(path) {
-  const stringList = path.map(({ x, y }, index) => {
-    return index === 0 ? `M ${x} ${y}` : `L ${x} ${y}`;
+  const stringList = path.map((coords, index) => {
+    return cToS(coords, index === 0);
   });
-  return stringList.join(" ");
+  return stringList.join(" ") + " Z";
 }
 
-function Stone({ size, selected, target }) {
-  const noiseRange = 2;
+function cToS({ x, y }, start = false) {
+  const letter = start ? "M" : "L";
+  return `${letter} ${x} ${y}`;
+}
+
+function Stone({ size, selected, isTarget, completed }) {
   const halfSize = size / 2;
+  const gap = size / 5;
 
   const top = { x: halfSize, y: 0 };
   const right = { x: size, y: halfSize };
   const bottom = { x: halfSize, y: size };
   const left = { x: 0, y: halfSize };
+
+  const innerTop = { x: halfSize, y: gap };
+  const innerRight = { x: size - gap, y: halfSize };
+  const innerBottom = { x: halfSize, y: size - gap };
+  const innerLeft = { x: gap, y: halfSize };
+
+  const noiseRange = 2;
 
   const topToRight = randomLine(top, right, 2, noiseRange);
   const rightToBottom = randomLine(right, bottom, 2, noiseRange);
@@ -45,82 +57,66 @@ function Stone({ size, selected, target }) {
 
   const pathCoords = [...topToRight, ...rightToBottom, ...bottomToLeft];
 
-  const d = lineAsD(pathCoords) + " Z";
-
-  // const rightLine = randomLine(topRight, bottomRight, 2, noiseRange);
-  // const bottomLine = randomLine(bottomRight, bottomLeft, 2, noiseRange);
-  // const leftLine = randomLine(bottomLeft, topLeft, 2, noiseRange);
-  //
-  // const topLeft = { x: noiseRange, y: noiseRange };
-  // const topRight = { x: size - noiseRange, y: noiseRange };
-  //
-  // const bottomRight = { x: size - noiseRange, y: size - noiseRange };
-  // const bottomLeft = { x: noiseRange, y: size - noiseRange };
-  //
-  // const topLine = randomLine(topLeft, topRight, 2, noiseRange);
-  // const rightLine = randomLine(topRight, bottomRight, 2, noiseRange);
-  // const bottomLine = randomLine(bottomRight, bottomLeft, 2, noiseRange);
-  // const leftLine = randomLine(bottomLeft, topLeft, 2, noiseRange);
-  //
-  // const pathCoords = [...topLine, ...rightLine, ...bottomLine, ...leftLine];
-  //
-  // const d = lineAsD(pathCoords);
+  const d = lineAsD(pathCoords);
 
   const color = "#43464B";
-  const gap = size / 5;
-  const outerTopLeft = `0 0`;
-  const outerTopRight = `${size} 0`;
-  const outerBottomRight = `${size} ${size}`;
-  const outerBottomLeft = `0 ${size}`;
 
-  const innerTopLeft = `${gap} ${gap}`;
-  const innerTopRight = `${size - gap} ${gap}`;
-  const innerBottomRight = `${size - gap} ${size - gap}`;
-  const innerBottomLeft = `${gap} ${size - gap}`;
+  const opacity = Math.max(Math.random() / 3, 0.2);
 
-  const opacity = Math.max(Math.random() / 2, 0.2);
+  const strokeColor = "black";
+  const strokeWidth = 1;
 
-  // const polishedStone = (
-  //   <g>
-  //     <path
-  //       d={`M ${outerTopLeft} L ${outerTopRight} L ${innerTopRight} L ${innerTopLeft} Z`}
-  //       fill={color}
-  //       stroke={color}
-  //       opacity="0.1"
-  //     />
-  //     <path
-  //       d={`M ${outerTopRight} L ${outerBottomRight} L ${innerBottomRight} L ${innerTopRight} Z`}
-  //       fill={color}
-  //       stroke={color}
-  //       opacity="0.4"
-  //     />
-  //     <path
-  //       d={`M ${innerBottomRight} L ${outerBottomRight} L ${outerBottomLeft} L ${innerBottomLeft} Z`}
-  //       fill={color}
-  //       stroke={color}
-  //       opacity="0.5"
-  //     />
-  //     <path
-  //       d={`M ${outerTopLeft} L ${outerBottomLeft} L ${innerBottomLeft} L ${innerTopLeft} Z`}
-  //       fill={color}
-  //       stroke={color}
-  //       opacity="0.6"
-  //     />
-  //     <path
-  //       d={`M ${innerTopLeft} L ${innerTopRight} L ${innerBottomRight} L ${innerBottomLeft} Z`}
-  //       fill={color}
-  //       stroke={color}
-  //       opacity="0.2"
-  //     />
-  //   </g>
-  // );
+  const gemNWd = lineAsD([left, top, innerTop, innerLeft]);
+  console.log({ gemNWd });
+  const gemColor = "#0F52BA";
 
-  const strokeColor = target ? "#0F52BA" : "black";
-  const strokeWidth = target ? 2 : 1;
+  const gemPieceNW = (
+    <path
+      d={lineAsD([left, top, innerTop, innerLeft])}
+      fill={gemColor}
+      stroke={gemColor}
+      opacity={0.2}
+    />
+  );
+
+  const gemPieceNE = (
+    <path
+      d={lineAsD([right, top, innerTop, innerRight])}
+      fill={gemColor}
+      stroke={gemColor}
+      opacity={0.6}
+    />
+  );
+
+  const gemPieceSE = (
+    <path
+      d={lineAsD([right, bottom, innerBottom, innerRight])}
+      fill={gemColor}
+      stroke={gemColor}
+      opacity={0.8}
+    />
+  );
+
+  const gemPieceSW = (
+    <path
+      d={lineAsD([left, bottom, innerBottom, innerLeft])}
+      fill={gemColor}
+      stroke={gemColor}
+      opacity={0.5}
+    />
+  );
+
+  const gemPieceHeart = (
+    <path
+      d={lineAsD([innerTop, innerRight, innerBottom, innerLeft])}
+      fill={gemColor}
+      stroke={gemColor}
+      opacity={0.25}
+    />
+  );
 
   const rock = (
     <path
-      className={selected ? "stone rotate" : "stone"}
       d={d}
       fill={color}
       stroke={strokeColor}
@@ -128,7 +124,21 @@ function Stone({ size, selected, target }) {
       strokeWidth={strokeWidth}
     />
   );
-  return rock;
+
+  const gem = [gemPieceNW, gemPieceNE, gemPieceSE, gemPieceSW, gemPieceHeart];
+  const piece = completed && isTarget ? gem : rock;
+  return <g className={selected ? "stone rotate" : "stone"}>{piece}</g>;
 }
+
+// function gemPiece({ d, gemColor }) {
+//   return;
+//   <path
+//     d={d}
+//     fill={gemColor}
+//     stroke={strokeColor}
+//     fill-opacity={opacity}
+//     strokeWidth={strokeWidth}
+//   />;
+// }
 
 export default pure(Stone);
