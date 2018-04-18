@@ -1,5 +1,5 @@
 .stone {
-  transform: rotate(0.125turn);
+  transform: rotate(-0.125turn);
   transform-origin: center;
   transition: transform 0.8s ease-in-out;
 }
