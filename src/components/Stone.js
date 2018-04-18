@@ -32,22 +32,39 @@ function lineAsD(path) {
 
 function Stone({ size, selected, target }) {
   const noiseRange = 2;
-  const topLeft = { x: noiseRange, y: noiseRange };
-  const topRight = { x: size - noiseRange, y: noiseRange };
+  const halfSize = size / 2;
 
-  const bottomRight = { x: size - noiseRange, y: size - noiseRange };
-  const bottomLeft = { x: noiseRange, y: size - noiseRange };
+  const top = { x: halfSize, y: 0 };
+  const right = { x: size, y: halfSize };
+  const bottom = { x: halfSize, y: size };
+  const left = { x: 0, y: halfSize };
 
-  const topLine = randomLine(topLeft, topRight, 2, noiseRange);
-  const rightLine = randomLine(topRight, bottomRight, 2, noiseRange);
-  const bottomLine = randomLine(bottomRight, bottomLeft, 2, noiseRange);
-  const leftLine = randomLine(bottomLeft, topLeft, 2, noiseRange);
+  const topToRight = randomLine(top, right, 2, noiseRange);
+  const rightToBottom = randomLine(right, bottom, 2, noiseRange);
+  const bottomToLeft = randomLine(bottom, left, 2, noiseRange);
 
-  const pathCoords = [...topLine, ...rightLine, ...bottomLine, ...leftLine];
+  const pathCoords = [...topToRight, ...rightToBottom, ...bottomToLeft];
 
-  // console.log({ pathCoords });
-  const d = lineAsD(pathCoords);
-  // console.log({ d });
+  const d = lineAsD(pathCoords) + " Z";
+
+  // const rightLine = randomLine(topRight, bottomRight, 2, noiseRange);
+  // const bottomLine = randomLine(bottomRight, bottomLeft, 2, noiseRange);
+  // const leftLine = randomLine(bottomLeft, topLeft, 2, noiseRange);
+  //
+  // const topLeft = { x: noiseRange, y: noiseRange };
+  // const topRight = { x: size - noiseRange, y: noiseRange };
+  //
+  // const bottomRight = { x: size - noiseRange, y: size - noiseRange };
+  // const bottomLeft = { x: noiseRange, y: size - noiseRange };
+  //
+  // const topLine = randomLine(topLeft, topRight, 2, noiseRange);
+  // const rightLine = randomLine(topRight, bottomRight, 2, noiseRange);
+  // const bottomLine = randomLine(bottomRight, bottomLeft, 2, noiseRange);
+  // const leftLine = randomLine(bottomLeft, topLeft, 2, noiseRange);
+  //
+  // const pathCoords = [...topLine, ...rightLine, ...bottomLine, ...leftLine];
+  //
+  // const d = lineAsD(pathCoords);
 
   const color = "#43464B";
   const gap = size / 5;
@@ -103,7 +120,7 @@ function Stone({ size, selected, target }) {
 
   const rock = (
     <path
-      className={selected ? "rotate" : null}
+      className={selected ? "stone rotate" : "stone"}
       d={d}
       fill={color}
       stroke={strokeColor}
