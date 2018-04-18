@@ -43,46 +43,45 @@ const createSquares = (number, target, showLevels) => {
       );
     }
 
-    if (squareNumber === number - 1) {
-      let xTextAdjust = 4;
-      let textSize = 13;
-      if (squareNumber >= 9) {
-        xTextAdjust = 8;
-        textSize = 13;
-      }
-      text = (
-        <text
-          x={x + size / 2 - xTextAdjust}
-          y={y + size / 2 + 5}
-          fontFamily="Verdana"
-          fontSize={textSize}
-          fill="#FFFFFF"
-        >
-          {squareNumber + 1}
-        </text>
-      );
+    // if (squareNumber === number - 1) {
+    let xTextAdjust = 4;
+    let textSize = 13;
+    if (squareNumber >= 9) {
+      xTextAdjust = 8;
+      textSize = 13;
     }
+    text = (
+      <text fontFamily="Verdana" fontSize={textSize} fill="#FFFFFF">
+        {squareNumber + 1}
+      </text>
+    );
 
-    if (squareNumber === target - 1) {
-      let xTextAdjust = 4;
-      let textSize = 13;
-      if (squareNumber >= 9) {
-        xTextAdjust = 8;
-        textSize = 13;
-      }
-      text = (
-        <text
-          x={x + size / 2 - xTextAdjust}
-          y={y + size / 2 + 5}
-          fontFamily="Verdana"
-          fontSize={textSize}
-          fill="#858585"
-        >
-          {squareNumber + 1}
-        </text>
-      );
-    }
+    console.log({ text });
+    //   );
+    // }
 
+    // if (squareNumber === target - 1) {
+    //   let xTextAdjust = 4;
+    //   let textSize = 13;
+    //   if (squareNumber >= 9) {
+    //     xTextAdjust = 8;
+    //     textSize = 13;
+    //   }
+    //   text = (
+    //     <text
+    //       x={x + size / 2 - xTextAdjust}
+    //       y={y + size / 2 + 5}
+    //       fontFamily="Verdana"
+    //       fontSize={textSize}
+    //       fill="#858585"
+    //     >
+    //       {squareNumber + 1}
+    //     </text>
+    //   );
+    // }
+    const squareValue = squareNumber + 1;
+    const textX = squareValue < 10 ? 10 : squareValue === 100 ? 4 : 7;
+    const textColor = selected ? "#FFFFFF" : "#999999";
     return (
       <svg key={squareNumber} x={x} y={y} width={size} height={size}>
         <Stone
@@ -93,7 +92,16 @@ const createSquares = (number, target, showLevels) => {
         />
         {/* <Gem size={size} color="#333333" /> */}
         {/* {targetCircle} */}
-        {text}
+        <text
+          x={textX}
+          y={15}
+          fontFamily="Verdana"
+          fontSize={8}
+          fill={textColor}
+          // fontWeight="bold"
+        >
+          {squareNumber + 1}
+        </text>
       </svg>
     );
   });
@@ -107,6 +115,12 @@ export default function Grid({ number, target, showLevels }) {
     </svg>
   );
 }
+//     <svg className="grid" width="300" height="300">
+//       {rects}
+//     </svg>
+//   );
+// }
+
 //     <svg className="grid" width="300" height="300">
 //       {rects}
 //     </svg>
