@@ -1,5 +1,5 @@
 import React from "react";
-// import "./Gem.css";
+import "./Stone.css";
 import { pure } from "recompose";
 
 function randomLine(start, end, numStops, range) {
@@ -103,6 +103,7 @@ function Stone({ size, selected, target }) {
 
   const rock = (
     <path
+      className={selected ? "rotate" : null}
       d={d}
       fill={color}
       stroke={strokeColor}

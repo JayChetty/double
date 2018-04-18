@@ -21,8 +21,8 @@ const createSquares = (number, target, showLevels) => {
     if (number === target && squareNumber === target - 1) {
       className = className + " completed";
     }
-    const size = 20;
-    const margin = 8;
+    const size = 22;
+    const margin = 6;
     const rowNumber = Math.floor(squareNumber / 10);
     const colNumber = Math.floor(squareNumber % 10);
     const x = size * colNumber + margin * colNumber + offsetX;
@@ -82,7 +82,6 @@ const createSquares = (number, target, showLevels) => {
         </text>
       );
     }
-    console.log({ size, x, y });
 
     return (
       <svg key={squareNumber} x={x} y={y} width={size} height={size}>
