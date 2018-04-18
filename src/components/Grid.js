@@ -30,19 +30,19 @@ const createSquares = (number, target, showLevels) => {
     const y = size * rowNumber + margin * rowNumber + offsetY;
     let text = null;
 
-    let targetCircle = null;
-    if (squareNumber === target - 1 && !showLevels) {
-      targetCircle = (
-        <circle
-          cx={x + size / 2}
-          cy={y + size / 2}
-          r="17"
-          fill="none"
-          stroke="#c2c2e7"
-          strokeWidth="2"
-        />
-      );
-    }
+    // let targetCircle = null;
+    // if (squareNumber === target - 1 && !showLevels) {
+    //   targetCircle = (
+    //     <circle
+    //       // cx={size / 2}
+    //       // cy={size / 2}
+    //       r="17"
+    //       fill="none"
+    //       stroke="#c2c2e7"
+    //       strokeWidth="2"
+    //     />
+    //   );
+    // }
 
     // if (squareNumber === number - 1) {
     let xTextAdjust = 4;
@@ -82,7 +82,7 @@ const createSquares = (number, target, showLevels) => {
     // }
     const squareValue = squareNumber + 1;
     const textX = squareValue < 10 ? 10 : squareValue === 100 ? 4 : 7;
-    const textColor = selected ? "#FFFFFF" : "#999999";
+    const textColor = selected ? "#FFFFFF" : isTarget ? "#0F52BA" : "#999999";
     return (
       <svg key={squareNumber} x={x} y={y} width={size} height={size}>
         <Stone
@@ -92,7 +92,7 @@ const createSquares = (number, target, showLevels) => {
           targetColor={"#FF0000"}
           completed={completed}
         />
-        {/* <Gem size={size} color="#333333" /> */}
+
         {/* {targetCircle} */}
         <text
           x={textX}
