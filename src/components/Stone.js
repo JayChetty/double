@@ -54,8 +54,14 @@ function Stone({ size, selected, isTarget, completed }) {
   const topToRight = randomLine(top, right, 2, noiseRange);
   const rightToBottom = randomLine(right, bottom, 2, noiseRange);
   const bottomToLeft = randomLine(bottom, left, 2, noiseRange);
+  const leftToTop = randomLine(left, top, 2, noiseRange);
 
-  const pathCoords = [...topToRight, ...rightToBottom, ...bottomToLeft];
+  const pathCoords = [
+    ...topToRight,
+    ...rightToBottom,
+    ...bottomToLeft,
+    ...leftToTop
+  ];
 
   const d = lineAsD(pathCoords);
 
