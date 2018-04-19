@@ -25,6 +25,11 @@ class App extends Component {
     window.localStorage.setItem("levels", JSON.stringify(levels));
   }
 
+  resetGame = () => {
+    this.saveLevels([1]);
+    this.setState({ completedLevels: [1] });
+  };
+
   componentDidMount() {
     const completedLevels = this.getLevels();
     const lastLevel = completedLevels[completedLevels.length - 1];
@@ -215,6 +220,7 @@ class App extends Component {
         deleteMove={this.deleteMove}
         showLevels={showLevels}
         playLevel={this.playLevel}
+        resetClick={this.resetGame}
       />
     );
 

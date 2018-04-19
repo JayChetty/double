@@ -11,7 +11,8 @@ export default function Controls({
   go,
   deleteMove,
   showLevels,
-  playLevel
+  playLevel,
+  resetClick
 }) {
   // const atZero = number === 0;
   const moveItems = sequanceArray(best).map(number => {
@@ -71,6 +72,7 @@ export default function Controls({
           <span className="go-text">play</span>
         </button>
       </div>
+      <button onClick={resetClick}>reset</button>
     </div>
   );
 
