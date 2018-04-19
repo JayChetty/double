@@ -90,7 +90,7 @@ const createSquares = (number, target, showLevels) => {
           selected={selected}
           isTarget={isTarget}
           targetColor={"#FF0000"}
-          completed={completed}
+          showGem={completed && isTarget}
         />
 
         {/* {targetCircle} */}
