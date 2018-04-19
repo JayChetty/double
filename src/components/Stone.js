@@ -69,11 +69,11 @@ export default class Stone extends PureComponent {
     const strokeWidth = 1;
 
     const gemNWd = lineAsD([left, top, innerTop, innerLeft]);
-    console.log({ gemNWd });
     const gemColor = "#0F52BA";
 
     const gemPieceNW = (
       <path
+        className="gem-piece"
         d={lineAsD([left, top, innerTop, innerLeft])}
         fill={gemColor}
         stroke={gemColor}
@@ -83,24 +83,27 @@ export default class Stone extends PureComponent {
 
     const gemPieceNE = (
       <path
+        className="gem-piece"
         d={lineAsD([right, top, innerTop, innerRight])}
         fill={gemColor}
         stroke={gemColor}
-        opacity={0.6}
+        opacity={0.4}
       />
     );
 
     const gemPieceSE = (
       <path
+        className="gem-piece"
         d={lineAsD([right, bottom, innerBottom, innerRight])}
         fill={gemColor}
         stroke={gemColor}
-        opacity={0.8}
+        opacity={0.55}
       />
     );
 
     const gemPieceSW = (
       <path
+        className="gem-piece"
         d={lineAsD([left, bottom, innerBottom, innerLeft])}
         fill={gemColor}
         stroke={gemColor}
@@ -110,6 +113,7 @@ export default class Stone extends PureComponent {
 
     const gemPieceHeart = (
       <path
+        className="gem-piece"
         d={lineAsD([innerTop, innerRight, innerBottom, innerLeft])}
         fill={gemColor}
         stroke={gemColor}
@@ -128,11 +132,11 @@ export default class Stone extends PureComponent {
     );
 
     const gem = [
-      gemPieceHeart,
+      gemPieceSE,
+      gemPieceSW,
       gemPieceNW,
       gemPieceNE,
-      gemPieceSE,
-      gemPieceSW
+      gemPieceHeart
     ].slice(0, gemPieces);
     const rockEl = gemPieces === 5 ? null : rock;
     const piece = [rockEl, gem];

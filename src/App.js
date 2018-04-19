@@ -59,14 +59,10 @@ class App extends Component {
   doneMoves() {
     const { moves, number, target, completedLevels } = this.state;
     const best = bestScores[target];
-    console.log("done moves");
     const atTarget = number === target;
-    // const inMinMoves = best === moves;
-    console.log("best moves", best, moves);
     this.setState({ stalled: true }, async () => {
-      await this.delay(2000);
+      await this.delay(6000);
       if (atTarget) {
-        console.log("at target");
         const newCompletedLevels = [...completedLevels, target];
         this.saveLevels(newCompletedLevels);
         this.setState({
