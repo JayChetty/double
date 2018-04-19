@@ -22,8 +22,8 @@ const createSquares = (number, target, showLevels) => {
     if (number === target && squareNumber === target - 1) {
       className = className + " completed";
     }
-    const size = 24;
-    const margin = 4;
+    const size = 26;
+    const margin = 2;
     const rowNumber = Math.floor(squareNumber / 10);
     const colNumber = Math.floor(squareNumber % 10);
     const x = size * colNumber + margin * colNumber + offsetX;
