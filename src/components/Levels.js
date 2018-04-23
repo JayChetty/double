@@ -16,7 +16,7 @@ const levels = [
 export const levelDetails = completedLevels => {
   console.log({ completedLevels });
   const allTargets = sequanceArray(100).map(num => num + 1);
-  return levels.map(level => {
+  const details = levels.map(level => {
     const targets = allTargets.filter(target => {
       const moves = bestScores[target];
       return moves >= level.minMoves && moves <= level.maxMoves;
@@ -28,6 +28,13 @@ export const levelDetails = completedLevels => {
       targets,
       completedTargets,
       completed: targets.length === completedTargets.length
+    };
+  });
+  return details.map((levelDetail, index) => {
+    const active = index === 0 || details[index - 1].completed;
+    return {
+      ...levelDetail,
+      active
     };
   });
 };
@@ -55,8 +62,8 @@ export const levelColor = levelNumber => {
 };
 
 const createSquares = (target, completedLevels, clicked) => {
-  const deets = levelDetails(completedLevels);
-  console.log({ deets });
+  const levelInfo = levelDetails(completedLevels);
+  console.log({ levelInfo });
 
   return sequanceArray(100).map(squareNumber => {
     const size = 22;
@@ -70,9 +77,13 @@ const createSquares = (target, completedLevels, clicked) => {
     );
 
     const levelOfSquare = squareNumber + 1;
+
+    const levelGroup = levelInfo.find(info =>
+      info.targets.includes(levelOfSquare)
+    );
+
     // const levelGroup = level(levelOfSquare);
     const color = levelColor(levelOfSquare);
-
     return (
       <Level
         squareNumber={squareNumber}
@@ -83,6 +94,7 @@ const createSquares = (target, completedLevels, clicked) => {
         selected={target === levelOfSquare}
         color={color}
         completed={completed}
+        active={levelGroup.active}
       />
     );
   });

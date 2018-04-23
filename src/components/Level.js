@@ -9,7 +9,8 @@ export default function Level({
   selected,
   squareNumber,
   clicked,
-  color
+  color,
+  active
 }) {
   let text = null;
   const className = "gem-holder";
@@ -35,6 +36,8 @@ export default function Level({
   }
 
   const hlfSize = size / 2;
+  const displayColor = active ? color : "#CCCCCC";
+  const click = active ? clicked(squareNumber + 1) : null;
   const levelIcon = completed ? (
     <Gem numPieces={5} color={color} size={size} />
   ) : (
@@ -42,7 +45,7 @@ export default function Level({
       <path
         d={`M ${hlfSize} 0 L ${size} ${hlfSize} L ${hlfSize} ${size} L 0 ${hlfSize} Z`}
         fill={selected ? color : "#FFFFFF"}
-        stroke={color}
+        stroke={displayColor}
         fill-opacity="0.6"
       />
     </g>
@@ -51,7 +54,7 @@ export default function Level({
   return (
     <svg
       key={squareNumber}
-      onClick={clicked(squareNumber + 1)}
+      onClick={click}
       x={x}
       y={y}
       width={size}
