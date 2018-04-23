@@ -6,13 +6,42 @@ import bestScores from "../data/levels";
 const offsetX = 10;
 const offsetY = 10;
 
+const levels = [
+  { maxMoves: 4, color: "#0F52BA" },
+  { maxMoves: 6, color: "#E0115F" },
+  { maxMoves: 8, color: "#b9f2ff" },
+  { maxMoves: 10, color: "#50c878" }
+];
+
+// export const levelDetails(completedLevels){
+//   // const levelInfo = {
+//   //   "1, "
+//   // }
+// }
+
 export const sequanceArray = size => {
   return Array.from(Array(size).keys());
 };
 
-const levels = [3, 5, 6];
+// export const level = levelNumber => {
+//   const movesForNumber = bestScores[levelNumber]
+//   if (bestScores[levelNumber] > 8) {
+//     return 3;
+//   } else if (bestScores[levelNumber] > 6) {
+//     return 2;
+//   } else if (bestScores[levelNumber] > 4) {
+//     return 1;
+//   }
+//   return 0;
+// };
 
-const colorForLevel = level => {};
+export const levelColor = levelNumber => {
+  const movesForNumber = bestScores[levelNumber];
+
+  const level = levels.find(level => movesForNumber <= level.maxMoves);
+  console.log({ movesForNumber, levels, level });
+  return level.color;
+};
 
 const createSquares = (target, completedLevels, clicked) => {
   return sequanceArray(100).map(squareNumber => {
@@ -27,15 +56,8 @@ const createSquares = (target, completedLevels, clicked) => {
     );
 
     const levelOfSquare = squareNumber + 1;
-    let color = "#0F52BA";
-    console.log("color", bestScores[levelOfSquare]);
-    if (bestScores[levelOfSquare] > 8) {
-      color = "#E0115F";
-    } else if (bestScores[levelOfSquare] > 6) {
-      color = "#b9f2ff";
-    } else if (bestScores[levelOfSquare] > 4) {
-      color = "#50c878";
-    }
+    // const levelGroup = level(levelOfSquare);
+    const color = levelColor(levelOfSquare);
 
     return (
       <Level
