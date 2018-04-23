@@ -7,17 +7,30 @@ const offsetX = 10;
 const offsetY = 10;
 
 const levels = [
-  { maxMoves: 4, color: "#0F52BA" },
-  { maxMoves: 6, color: "#E0115F" },
-  { maxMoves: 8, color: "#b9f2ff" },
-  { maxMoves: 10, color: "#50c878" }
+  { minMoves: 0, maxMoves: 4, color: "#0F52BA" },
+  { minMoves: 5, maxMoves: 6, color: "#E0115F" },
+  { minMoves: 7, maxMoves: 8, color: "#b9f2ff" },
+  { minMoves: 9, maxMoves: 10, color: "#50c878" }
 ];
 
-// export const levelDetails(completedLevels){
-//   // const levelInfo = {
-//   //   "1, "
-//   // }
-// }
+export const levelDetails = completedLevels => {
+  console.log({ completedLevels });
+  const allTargets = sequanceArray(100).map(num => num + 1);
+  return levels.map(level => {
+    const targets = allTargets.filter(target => {
+      const moves = bestScores[target];
+      return moves >= level.minMoves && moves <= level.maxMoves;
+    });
+    const completedTargets = targets.filter(num =>
+      completedLevels.includes(num)
+    );
+    return {
+      targets,
+      completedTargets,
+      completed: targets.length === completedTargets.length
+    };
+  });
+};
 
 export const sequanceArray = size => {
   return Array.from(Array(size).keys());
@@ -37,13 +50,14 @@ export const sequanceArray = size => {
 
 export const levelColor = levelNumber => {
   const movesForNumber = bestScores[levelNumber];
-
   const level = levels.find(level => movesForNumber <= level.maxMoves);
-  console.log({ movesForNumber, levels, level });
   return level.color;
 };
 
 const createSquares = (target, completedLevels, clicked) => {
+  const deets = levelDetails(completedLevels);
+  console.log({ deets });
+
   return sequanceArray(100).map(squareNumber => {
     const size = 22;
     const margin = 6;
