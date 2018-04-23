@@ -1,5 +1,9 @@
 import React, { PureComponent } from "react";
 import "./Stone.css";
+import Gem from "./Gem";
+
+import { lineAsD, randomLine } from "../lib/drawing";
+
 import { pure } from "recompose";
 
 export default class Stone extends PureComponent {
@@ -40,11 +44,6 @@ export default class Stone extends PureComponent {
     const bottom = { x: halfSize, y: size };
     const left = { x: 0, y: halfSize };
 
-    const innerTop = { x: halfSize, y: gap };
-    const innerRight = { x: size - gap, y: halfSize };
-    const innerBottom = { x: halfSize, y: size - gap };
-    const innerLeft = { x: gap, y: halfSize };
-
     const noiseRange = 2;
 
     const topToRight = randomLine(top, right, 2, noiseRange);
@@ -68,59 +67,6 @@ export default class Stone extends PureComponent {
     const strokeColor = "black";
     const strokeWidth = 1;
 
-    const gemNWd = lineAsD([left, top, innerTop, innerLeft]);
-    const gemColor = "#0F52BA";
-
-    const gemPieceNW = (
-      <path
-        className="gem-piece"
-        d={lineAsD([left, top, innerTop, innerLeft])}
-        fill={gemColor}
-        stroke={gemColor}
-        opacity={0.2}
-      />
-    );
-
-    const gemPieceNE = (
-      <path
-        className="gem-piece"
-        d={lineAsD([right, top, innerTop, innerRight])}
-        fill={gemColor}
-        stroke={gemColor}
-        opacity={0.4}
-      />
-    );
-
-    const gemPieceSE = (
-      <path
-        className="gem-piece"
-        d={lineAsD([right, bottom, innerBottom, innerRight])}
-        fill={gemColor}
-        stroke={gemColor}
-        opacity={0.55}
-      />
-    );
-
-    const gemPieceSW = (
-      <path
-        className="gem-piece"
-        d={lineAsD([left, bottom, innerBottom, innerLeft])}
-        fill={gemColor}
-        stroke={gemColor}
-        opacity={0.5}
-      />
-    );
-
-    const gemPieceHeart = (
-      <path
-        className="gem-piece"
-        d={lineAsD([innerTop, innerRight, innerBottom, innerLeft])}
-        fill={gemColor}
-        stroke={gemColor}
-        opacity={0.25}
-      />
-    );
-
     const rock = (
       <path
         d={d}
@@ -131,48 +77,9 @@ export default class Stone extends PureComponent {
       />
     );
 
-    const gem = [
-      gemPieceSE,
-      gemPieceSW,
-      gemPieceNW,
-      gemPieceNE,
-      gemPieceHeart
-    ].slice(0, gemPieces);
+    const gem = <Gem numPieces={gemPieces} color={"#0F52BA"} size={size} />;
     const rockEl = gemPieces === 5 ? null : rock;
     const piece = [rockEl, gem];
     return <g className={selected ? "stone rotate" : "stone"}>{piece}</g>;
   }
-}
-
-function randomLine(start, end, numStops, range) {
-  const xDiff = end.x - start.x;
-  const yDiff = end.y - start.y;
-
-  const xChunk = xDiff / (numStops + 1);
-  const yChunk = yDiff / (numStops + 1);
-
-  const stops = Array(numStops)
-    .fill(undefined)
-    .map((_, index) => {
-      const xNoise = (Math.random() - 0.5) * range;
-      const yNoise = (Math.random() - 0.5) * range;
-
-      return {
-        x: start.x + xChunk * (index + 1) + xNoise,
-        y: start.y + yChunk * (index + 1) + yNoise
-      };
-    });
-  return [start, ...stops, end];
-}
-
-function lineAsD(path) {
-  const stringList = path.map((coords, index) => {
-    return cToS(coords, index === 0);
-  });
-  return stringList.join(" ") + " Z";
-}
-
-function cToS({ x, y }, start = false) {
-  const letter = start ? "M" : "L";
-  return `${letter} ${x} ${y}`;
 }

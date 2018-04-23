@@ -1,5 +1,6 @@
 import React from "react";
 import Gem from "./Gem";
+
 export default function Level({
   x,
   y,
@@ -35,7 +36,7 @@ export default function Level({
 
   const hlfSize = size / 2;
   const levelIcon = completed ? (
-    <Gem x={x} y={y} color={color} size={size} />
+    <Gem numPieces={5} color={color} size={size} />
   ) : (
     <g>
       <path
