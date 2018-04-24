@@ -1,5 +1,7 @@
 import React from "react";
 import Level from "./Level";
+import Gem from "./Gem";
+
 import "./Levels.css";
 import bestScores from "../data/levels";
 
@@ -61,8 +63,7 @@ export const levelColor = levelNumber => {
   return level.color;
 };
 
-const createSquares = (target, completedLevels, clicked) => {
-  const levelInfo = levelDetails(completedLevels);
+const createSquares = (target, completedLevels, clicked, levelInfo) => {
   console.log({ levelInfo });
 
   return sequanceArray(100).map(squareNumber => {
@@ -102,11 +103,25 @@ const createSquares = (target, completedLevels, clicked) => {
 
 export default function Levels({ target, completedLevels, updateTarget }) {
   const clicked = newTarget => () => updateTarget(newTarget);
+  const levelInfo = levelDetails(completedLevels);
+  const levelInfoEls = levelInfo.map((info, index) => {
+    if (!info.active) {
+      return null;
+    }
+    return (
+      <div>
+        Level {index + 1}: {info.completedTargets.length}/{info.targets.length}
+      </div>
+    );
+  });
 
-  const rects = createSquares(target, completedLevels, clicked);
+  const rects = createSquares(target, completedLevels, clicked, levelInfo);
   return (
-    <svg className="grid" width="300" height="300">
-      {rects}
-    </svg>
+    <section>
+      <svg className="grid" width="300" height="300">
+        {rects}
+      </svg>
+      <div>{levelInfoEls}</div>
+    </section>
   );
 }

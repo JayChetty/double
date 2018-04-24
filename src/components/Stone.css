@@ -8,25 +8,3 @@
   transform: rotate(0);
   transition: transform 0.8s ease-in-out;
 }
-
-.gem-piece {
-  animation: shine 1 2s linear;
-  animation-iteration-count: infinite;
-}
-
-@keyframes shine {
-  0% {
-  }
-  50% {
-    opacity: 0.1;
-  }
-  75% {
-    opacity: 0.2;
-  }
-  85% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 0.9;
-  }
-}
