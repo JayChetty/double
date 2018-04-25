@@ -13,20 +13,15 @@ export default function Level({
   color,
   active
 }) {
-  let text = null;
   const className = "gem-holder";
 
-  let xTextAdjust = 4;
-  let textSize = 13;
-  if (squareNumber >= 9) {
-    xTextAdjust = 8;
-    textSize = 13;
-  }
-  text = (
-    <text fontFamily="Verdana" fontSize={textSize} fill="#FFFFFF">
+  const textX = squareNumber + 1 < 10 ? 8 : squareNumber + 1 === 100 ? 3 : 6;
+  const text = (
+    <text x={textX} y={14} fontFamily="Verdana" fontSize={8} fill={color}>
       {squareNumber + 1}
     </text>
   );
+  const displayText = active && !completed ? text : null;
 
   const displayColor = active ? color : "#CCCCCC";
   const click = active ? clicked(squareNumber + 1) : null;
@@ -50,9 +45,7 @@ export default function Level({
       height={size}
     >
       {levelIcon}
-      {/* {targetCircle} */}
-      {text}
-      {/* {tick} */}
+      {displayText}
     </svg>
   );
 }

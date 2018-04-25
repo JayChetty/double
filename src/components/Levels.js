@@ -9,13 +9,21 @@ import bestScores from "../data/levels";
 const offsetX = 10;
 const offsetY = 10;
 
+const gemColors = {
+  emerald: "#40d67c",
+  sapphire: "#0F52BA",
+  ruby: "#E0115F",
+  diamond: "#3ababc",
+  gold: "#e8dd10",
+  purple: "#cc6ed8"
+};
 const levels = [
-  { minMoves: 0, maxMoves: 4, color: "#0F52BA" },
-  { minMoves: 5, maxMoves: 5, color: "#E0115F" },
-  { minMoves: 6, maxMoves: 6, color: "#E0115F" },
-  { minMoves: 7, maxMoves: 7, color: "#b9f2ff" },
-  { minMoves: 7, maxMoves: 8, color: "#b9f2ff" },
-  { minMoves: 9, maxMoves: 10, color: "#50c878" }
+  { minMoves: 0, maxMoves: 4, color: gemColors.sapphire },
+  { minMoves: 5, maxMoves: 5, color: gemColors.gold },
+  { minMoves: 6, maxMoves: 6, color: gemColors.emerald },
+  { minMoves: 7, maxMoves: 7, color: gemColors.ruby },
+  { minMoves: 7, maxMoves: 8, color: gemColors.purple },
+  { minMoves: 9, maxMoves: 10, color: gemColors.diamond }
 ];
 
 export const levelDetails = completedLevels => {

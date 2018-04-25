@@ -6,7 +6,8 @@
   opacity: 0.2;
 } */
 
-.gem-piece {
+.gem {
+  background-color: white;
   /* animation: shine 1 2s linear;
   animation-iteration-count: infinite; */
 }

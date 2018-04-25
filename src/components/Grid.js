@@ -59,7 +59,7 @@ const createSquares = (number, target, showLevels) => {
     );
 
     const squareValue = squareNumber + 1;
-    const textX = squareValue < 10 ? 10 : squareValue === 100 ? 4 : 7;
+    const textX = squareValue < 10 ? 10 : squareValue === 100 ? 5 : 8;
     const textColor = selected ? "#FFFFFF" : isTarget ? "#FFFFFF" : "#999999";
     return (
       <svg key={squareNumber} x={x} y={y} width={size} height={size}>

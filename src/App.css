@@ -138,7 +138,7 @@ text {
 }
 
 .button {
-  border-radius: 100%;
+  /* border-radius: 100%; */
   border: 2px #c2c2e7 solid;
   font-size: 26px;
   width: 60px;
@@ -164,7 +164,7 @@ text {
 .clear-button {
   margin: 6px;
   border: none;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   background-color: #c2c2e7;
   color: white;
 }
@@ -197,7 +197,7 @@ text {
   min-width: 18px;
   margin: 5px;
   color: #999;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
 
 .completed-level {
@@ -236,7 +236,7 @@ text {
   max-width: 150px;
   color: #888;
   border: 1px solid #888;
-  border-radius: 25px;
+  /* border-radius: 25px; */
 }
 
 .moves {
@@ -244,7 +244,7 @@ text {
   width: 25px;
   height: 25px;
   border: 1px solid #888;
-  border-radius: 100%;
+  /* border-radius: 100%; */
   text-align: center;
   padding-top: 5px;
 }
@@ -260,7 +260,7 @@ text {
   /* border: 1px dashed #c2c2e7; */
   border: 3px dashed #ccc;
   /* fill: #c2c2e7; */
-  border-radius: 100%;
+  /* border-radius: 100%; */
   margin: 3px;
 }
 

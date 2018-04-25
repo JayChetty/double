@@ -1,4 +1,5 @@
 import React from "react";
+import "./Gem.css";
 import { lineAsD } from "../lib/drawing";
 export default function Gem({ numPieces, color, size }) {
   const halfSize = size / 2;
@@ -15,14 +16,15 @@ export default function Gem({ numPieces, color, size }) {
   const innerLeft = { x: gap, y: halfSize };
 
   const gemColor = "#0F52BA";
-
+  const strokeOpacity = 0.5;
   const gemPieceNW = (
     <path
       className="gem-piece"
       d={lineAsD([left, top, innerTop, innerLeft])}
       fill={color}
       stroke={color}
-      opacity={0.2}
+      fillOpacity={0.2}
+      strokeOpacity={strokeOpacity}
     />
   );
 
@@ -32,7 +34,8 @@ export default function Gem({ numPieces, color, size }) {
       d={lineAsD([right, top, innerTop, innerRight])}
       fill={color}
       stroke={color}
-      opacity={0.4}
+      fillOpacity={0.4}
+      strokeOpacity={strokeOpacity}
     />
   );
 
@@ -42,7 +45,8 @@ export default function Gem({ numPieces, color, size }) {
       d={lineAsD([right, bottom, innerBottom, innerRight])}
       fill={color}
       stroke={color}
-      opacity={0.55}
+      fillOpacity={0.55}
+      strokeOpacity={strokeOpacity}
     />
   );
 
@@ -52,7 +56,8 @@ export default function Gem({ numPieces, color, size }) {
       d={lineAsD([left, bottom, innerBottom, innerLeft])}
       fill={color}
       stroke={color}
-      opacity={0.5}
+      fillOpacity={0.5}
+      strokeOpacity={strokeOpacity}
     />
   );
 
@@ -62,12 +67,18 @@ export default function Gem({ numPieces, color, size }) {
       d={lineAsD([innerTop, innerRight, innerBottom, innerLeft])}
       fill={color}
       stroke={color}
-      opacity={0.25}
+      fillOpacity={0.3}
+      strokeOpacity={strokeOpacity}
     />
   );
 
-  return [gemPieceSE, gemPieceSW, gemPieceNW, gemPieceNE, gemPieceHeart].slice(
-    0,
-    numPieces
-  );
+  const pieces = [
+    gemPieceSE,
+    gemPieceSW,
+    gemPieceNW,
+    gemPieceNE,
+    gemPieceHeart
+  ].slice(0, numPieces);
+
+  return <svg className="gem">{pieces}</svg>;
 }
