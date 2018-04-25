@@ -66,7 +66,7 @@ class App extends Component {
     const best = bestScores[target];
     const atTarget = number === target;
     this.setState({ stalled: true }, async () => {
-      await this.delay(6000);
+      await this.delay(3000);
       if (atTarget) {
         const newCompletedLevels = [...completedLevels, target];
         this.saveLevels(newCompletedLevels);
@@ -76,7 +76,6 @@ class App extends Component {
           stalled: false,
           showLevels: true,
           completedLevels: newCompletedLevels,
-          target: target + 1,
           moveList: []
         });
       } else {

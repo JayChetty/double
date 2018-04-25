@@ -1,6 +1,7 @@
 import React from "react";
 import Stone from "./Stone";
 import Gem from "./Gem";
+import { levelColor } from "./Levels";
 
 const offsetX = 10;
 const offsetY = 10;
@@ -68,6 +69,7 @@ const createSquares = (number, target, showLevels) => {
           isTarget={isTarget}
           targetColor={"#FF0000"}
           showGem={completed && isTarget}
+          gemColor={levelColor(squareValue)}
         />
 
         {/* {targetCircle} */}

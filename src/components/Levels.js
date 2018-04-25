@@ -11,7 +11,9 @@ const offsetY = 10;
 
 const levels = [
   { minMoves: 0, maxMoves: 4, color: "#0F52BA" },
-  { minMoves: 5, maxMoves: 6, color: "#E0115F" },
+  { minMoves: 5, maxMoves: 5, color: "#E0115F" },
+  { minMoves: 6, maxMoves: 6, color: "#E0115F" },
+  { minMoves: 7, maxMoves: 7, color: "#b9f2ff" },
   { minMoves: 7, maxMoves: 8, color: "#b9f2ff" },
   { minMoves: 9, maxMoves: 10, color: "#50c878" }
 ];

@@ -33,7 +33,7 @@ export default class Stone extends PureComponent {
   };
 
   render() {
-    const { size, selected, isTarget } = this.props;
+    const { size, selected, isTarget, gemColor } = this.props;
     const { gemPieces } = this.state;
 
     const halfSize = size / 2;
@@ -77,7 +77,7 @@ export default class Stone extends PureComponent {
       />
     );
 
-    const gem = <Gem numPieces={gemPieces} color={"#0F52BA"} size={size} />;
+    const gem = <Gem numPieces={gemPieces} color={gemColor} size={size} />;
     const rockEl = gemPieces === 5 ? null : rock;
     const piece = [rockEl, gem];
     return <g className={selected ? "stone rotate" : "stone"}>{piece}</g>;
