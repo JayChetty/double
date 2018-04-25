@@ -44,7 +44,7 @@ export default class Stone extends PureComponent {
     const bottom = { x: halfSize, y: size };
     const left = { x: 0, y: halfSize };
 
-    const noiseRange = 2;
+    const noiseRange = 1;
 
     const topToRight = randomLine(top, right, 2, noiseRange);
     const rightToBottom = randomLine(right, bottom, 2, noiseRange);

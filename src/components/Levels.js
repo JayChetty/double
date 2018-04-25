@@ -106,7 +106,7 @@ const createSquares = (target, completedLevels, clicked, levelInfo) => {
 export default function Levels({ target, completedLevels, updateTarget }) {
   const clicked = newTarget => () => updateTarget(newTarget);
   const levelInfo = levelDetails(completedLevels);
-  const levelIconSize = 25;
+  const levelIconSize = 30;
   const levelInfoEls = levelInfo.map((info, index) => {
     const icon = info.completed ? (
       <Gem numPieces={5} color={info.color} size={levelIconSize} />
