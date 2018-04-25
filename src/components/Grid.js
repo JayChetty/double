@@ -57,29 +57,6 @@ const createSquares = (number, target, showLevels) => {
       </text>
     );
 
-    console.log({ text });
-    //   );
-    // }
-
-    // if (squareNumber === target - 1) {
-    //   let xTextAdjust = 4;
-    //   let textSize = 13;
-    //   if (squareNumber >= 9) {
-    //     xTextAdjust = 8;
-    //     textSize = 13;
-    //   }
-    //   text = (
-    //     <text
-    //       x={x + size / 2 - xTextAdjust}
-    //       y={y + size / 2 + 5}
-    //       fontFamily="Verdana"
-    //       fontSize={textSize}
-    //       fill="#858585"
-    //     >
-    //       {squareNumber + 1}
-    //     </text>
-    //   );
-    // }
     const squareValue = squareNumber + 1;
     const textX = squareValue < 10 ? 10 : squareValue === 100 ? 4 : 7;
     const textColor = selected ? "#FFFFFF" : isTarget ? "#0F52BA" : "#999999";

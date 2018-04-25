@@ -1,6 +1,7 @@
 import React from "react";
 import Level from "./Level";
 import Gem from "./Gem";
+import GemHolder from "./GemHolder";
 
 import "./Levels.css";
 import bestScores from "../data/levels";
@@ -27,6 +28,7 @@ export const levelDetails = completedLevels => {
       completedLevels.includes(num)
     );
     return {
+      color: level.color,
       targets,
       completedTargets,
       completed: targets.length === completedTargets.length
@@ -104,13 +106,24 @@ const createSquares = (target, completedLevels, clicked, levelInfo) => {
 export default function Levels({ target, completedLevels, updateTarget }) {
   const clicked = newTarget => () => updateTarget(newTarget);
   const levelInfo = levelDetails(completedLevels);
+  const levelIconSize = 25;
   const levelInfoEls = levelInfo.map((info, index) => {
-    if (!info.active) {
-      return null;
-    }
+    const icon = info.completed ? (
+      <Gem numPieces={5} color={info.color} size={levelIconSize} />
+    ) : (
+      <GemHolder
+        strokeColor={info.active ? info.color : "#CCCCCC"}
+        fillColor={"#FFFFFF"}
+        size={levelIconSize}
+        text="?"
+      />
+    );
     return (
-      <div>
-        Level {index + 1}: {info.completedTargets.length}/{info.targets.length}
+      <div className="level-row">
+        <svg width={levelIconSize} height={levelIconSize}>
+          {icon}
+        </svg>
+        {/* {info.completedTargets.length}/{info.targets.length} */}
       </div>
     );
   });
@@ -121,7 +134,7 @@ export default function Levels({ target, completedLevels, updateTarget }) {
       <svg className="grid" width="300" height="300">
         {rects}
       </svg>
-      <div>{levelInfoEls}</div>
+      <div className="level-info">{levelInfoEls}</div>
     </section>
   );
 }

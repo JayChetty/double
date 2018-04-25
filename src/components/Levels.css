@@ -1,3 +1,12 @@
 .gem-holder {
   transform: rotate(0.125turn);
 }
+
+.level-row {
+  padding: 5px;
+}
+
+.level-info {
+  border-top: solid 1px #cccccc;
+  padding-top: 8px;
+}

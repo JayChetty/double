@@ -1,5 +1,6 @@
 import React from "react";
 import Gem from "./Gem";
+import GemHolder from "./GemHolder";
 
 export default function Level({
   x,
@@ -15,40 +16,28 @@ export default function Level({
   let text = null;
   const className = "gem-holder";
 
-  if (selected) {
-    let xTextAdjust = 3;
-    let textSize = 11;
-    if (squareNumber >= 9) {
-      xTextAdjust = 8;
-      textSize = 11;
-    }
-    text = (
-      <text
-        // x={x + size / 2 - xTextAdjust}
-        // y={y + size / 2 + 3}
-        fontFamily="Verdana"
-        fontSize={textSize}
-        fill="#FFFFFF"
-      >
-        {squareNumber + 1}
-      </text>
-    );
+  let xTextAdjust = 4;
+  let textSize = 13;
+  if (squareNumber >= 9) {
+    xTextAdjust = 8;
+    textSize = 13;
   }
+  text = (
+    <text fontFamily="Verdana" fontSize={textSize} fill="#FFFFFF">
+      {squareNumber + 1}
+    </text>
+  );
 
-  const hlfSize = size / 2;
   const displayColor = active ? color : "#CCCCCC";
   const click = active ? clicked(squareNumber + 1) : null;
   const levelIcon = completed ? (
     <Gem numPieces={5} color={color} size={size} />
   ) : (
-    <g>
-      <path
-        d={`M ${hlfSize} 0 L ${size} ${hlfSize} L ${hlfSize} ${size} L 0 ${hlfSize} Z`}
-        fill={selected ? color : "#FFFFFF"}
-        stroke={displayColor}
-        fill-opacity="0.6"
-      />
-    </g>
+    <GemHolder
+      strokeColor={displayColor}
+      fillColor={selected ? color : "#FFFFFF"}
+      size={size}
+    />
   );
 
   return (
