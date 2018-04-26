@@ -218,12 +218,10 @@ class App extends Component {
         go={this.go}
         deleteMove={this.deleteMove}
         showLevels={showLevels}
-        playLevel={this.playLevel}
-        resetClick={this.resetGame}
       />
     );
 
-    const grid = showLevels ? (
+    const main = showLevels ? (
       <Levels
         number={number}
         target={target}
@@ -231,6 +229,8 @@ class App extends Component {
         completedLevels={completedLevels}
         createLevelClickAction={this.createLevelClickAction}
         updateTarget={this.updateTarget}
+        playLevel={this.playLevel}
+        resetClick={this.resetGame}
       />
     ) : (
       <Grid
@@ -241,6 +241,8 @@ class App extends Component {
         createLevelClickAction={this.createLevelClickAction}
       />
     );
+
+    const maybeControls = showLevels ? null : controls;
 
     // const moveItems = moveList.map((move, index) => {
     //   const isActive = index == moves - 1;
@@ -262,8 +264,8 @@ class App extends Component {
     //   );
     return (
       <div className="App">
-        {grid}
-        {controls}
+        {main}
+        {maybeControls}
       </div>
     );
   }

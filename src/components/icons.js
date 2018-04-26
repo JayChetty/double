@@ -1,8 +1,8 @@
 import React from "react";
 const doubleIcon = (
   <svg
-    width="32"
-    height="32"
+    width="20"
+    height="20"
     viewBox="0 0 1792 1792"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -12,8 +12,8 @@ const doubleIcon = (
 
 const addIcon = (
   <svg
-    width="32"
-    height="32"
+    width="20"
+    height="20"
     viewBox="0 0 1792 1792"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -23,8 +23,8 @@ const addIcon = (
 
 const minusIcon = (
   <svg
-    width="32"
-    height="32"
+    width="20"
+    height="20"
     viewBox="0 0 1792 1792"
     xmlns="http://www.w3.org/2000/svg"
   >

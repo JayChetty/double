@@ -129,11 +129,10 @@ text {
 }
 
 .button {
-  /* border-radius: 100%; */
+  border-radius: 10px;
   border: 2px #666666 solid;
-  font-size: 26px;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   /* fill: #c2c2e7; */
   fill: white;
 
@@ -237,8 +236,8 @@ text {
 }
 
 .move-piece {
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
   /* border: 1px dashed #c2c2e7; */
   border: 3px dashed #ccc;
   /* fill: #c2c2e7; */

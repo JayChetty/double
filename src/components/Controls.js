@@ -63,18 +63,17 @@ export default function Controls({
     moveList.length > 0 && best !== moveList.length ? deleteButton : null;
 
   const controlsClass = best === moveList.length ? "hidden" : null;
-  // const controls = best === moveList.length ? null : placeButtons;
 
-  const levelControls = (
-    <div className="controls">
-      <div className="buttons">
-        <button className={`button`} onClick={playLevel}>
-          <span className="go-text">play</span>
-        </button>
-      </div>
-      <button onClick={resetClick}>reset</button>
-    </div>
-  );
+  // const levelControls = (
+  //   <div className="controls">
+  //     <div className="buttons">
+  //       <button className={`button`} onClick={playLevel}>
+  //         <span className="go-text">play</span>
+  //       </button>
+  //     </div>
+  //     <button onClick={resetClick}>reset</button>
+  //   </div>
+  // );
 
   const mainControls = (
     <div className="controls">
@@ -84,7 +83,7 @@ export default function Controls({
     </div>
   );
 
-  const body = showLevels ? levelControls : mainControls;
+  const body = mainControls;
 
   return body;
 }

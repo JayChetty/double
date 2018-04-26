@@ -14,7 +14,7 @@ const gemColors = {
   sapphire: "#0F52BA",
   ruby: "#E0115F",
   diamond: "#3ababc",
-  gold: "#e8dd10",
+  gold: "#f9a602",
   purple: "#cc6ed8"
 };
 const levels = [
@@ -22,7 +22,7 @@ const levels = [
   { minMoves: 5, maxMoves: 5, color: gemColors.gold },
   { minMoves: 6, maxMoves: 6, color: gemColors.emerald },
   { minMoves: 7, maxMoves: 7, color: gemColors.ruby },
-  { minMoves: 7, maxMoves: 8, color: gemColors.purple },
+  { minMoves: 8, maxMoves: 8, color: gemColors.purple },
   { minMoves: 9, maxMoves: 10, color: gemColors.diamond }
 ];
 
@@ -113,10 +113,16 @@ const createSquares = (target, completedLevels, clicked, levelInfo) => {
   });
 };
 
-export default function Levels({ target, completedLevels, updateTarget }) {
+export default function Levels({
+  target,
+  completedLevels,
+  updateTarget,
+  playLevel
+}) {
   const clicked = newTarget => () => updateTarget(newTarget);
   const levelInfo = levelDetails(completedLevels);
   const levelIconSize = 30;
+
   const levelInfoEls = levelInfo.map((info, index) => {
     const icon = info.completed ? (
       <Gem numPieces={5} color={info.color} size={levelIconSize} />
@@ -139,12 +145,47 @@ export default function Levels({ target, completedLevels, updateTarget }) {
   });
 
   const rects = createSquares(target, completedLevels, clicked, levelInfo);
+
+  const selectedInfo = levelInfo.find(info => info.targets.includes(target));
+
+  const playButtonSize = 50;
+
+  const playButton = selectedInfo.completed ? (
+    <Gem numPieces={5} color={selectedInfo.color} size={playButtonSize} />
+  ) : (
+    <GemHolder
+      strokeColor={selectedInfo.active ? selectedInfo.color : "#CCCCCC"}
+      fillColor={"#FFFFFF"}
+      size={playButtonSize}
+      text="?"
+    />
+  );
+
   return (
-    <section>
+    <section className="level-container">
       <svg className="grid" width="300" height="300">
         {rects}
       </svg>
       <div className="level-info">{levelInfoEls}</div>
+      <div className="level-play-button">
+        <svg
+          width={playButtonSize}
+          height={playButtonSize}
+          className="play-button"
+          onClick={playLevel}
+        >
+          {playButton}
+          <text
+            x={target > 10 ? 15 : 20}
+            y={31}
+            fontFamily="Verdana"
+            fontSize={15}
+            fill={selectedInfo.color}
+          >
+            {target}
+          </text>
+        </svg>
+      </div>
     </section>
   );
 }

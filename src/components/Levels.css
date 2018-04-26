@@ -1,3 +1,8 @@
+.level-container {
+  height: 100%;
+  /* display: flex;
+  flex-direction: column; */
+}
 .gem-holder {
   transform: rotate(0.125turn);
 }
@@ -8,5 +13,14 @@
 
 .level-info {
   border-top: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc;
+
   padding-top: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.level-play-button {
+  margin-top: 20px;
 }
