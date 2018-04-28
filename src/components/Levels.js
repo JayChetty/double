@@ -85,9 +85,7 @@ const createSquares = (target, completedLevels, clicked, levelInfo) => {
     const colNumber = Math.floor(squareNumber % 10);
     const x = size * colNumber + margin * colNumber + offsetX;
     const y = size * rowNumber + margin * rowNumber + offsetY;
-    const completed = completedLevels.some(
-      completed => completed - 1 === squareNumber
-    );
+    const completed = completedLevels.includes(squareNumber + 1);
 
     const levelOfSquare = squareNumber + 1;
 
@@ -149,8 +147,8 @@ export default function Levels({
   const selectedInfo = levelInfo.find(info => info.targets.includes(target));
 
   const playButtonSize = 50;
-
-  const playButton = selectedInfo.completed ? (
+  const completed = completedLevels.includes(target);
+  const playButton = completed ? (
     <Gem numPieces={5} color={selectedInfo.color} size={playButtonSize} />
   ) : (
     <GemHolder
