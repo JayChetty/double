@@ -161,7 +161,7 @@ export default function Levels({
 
   return (
     <section className="level-container">
-      <svg className="grid" width="300" height="300">
+      <svg className="grid" width="80vw" height="80vw" viewBox="0 0 300 300">
         {rects}
       </svg>
       <div className="level-info">{levelInfoEls}</div>
