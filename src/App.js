@@ -264,8 +264,10 @@ class App extends Component {
     //   );
     return (
       <div className="App">
-        {main}
-        {maybeControls}
+        <div className="level-container">
+          {main}
+          {maybeControls}
+        </div>
       </div>
     );
   }

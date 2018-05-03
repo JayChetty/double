@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Level from "./Level";
 import Gem from "./Gem";
 import GemHolder from "./GemHolder";
@@ -164,7 +164,8 @@ export default function Levels({
   );
 
   return (
-    <section className="level-container">
+    // <section className="level-container">
+    <Fragment>
       <svg className="grid" width="80%" viewBox="0 0 300 300">
         {rects}
       </svg>
@@ -189,6 +190,6 @@ export default function Levels({
           </text>
         </svg>
       </div>
-    </section>
+    </Fragment>
   );
 }

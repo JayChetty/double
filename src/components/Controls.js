@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import icons from "./icons";
 import { sequanceArray } from "./Grid";
 export default function Controls({
@@ -28,7 +28,7 @@ export default function Controls({
   });
 
   const placeButtons = (
-    <div className="buttons">
+    <Fragment>
       <button
         disabled={stalled}
         className="button control"
@@ -50,7 +50,7 @@ export default function Controls({
       >
         {icons["addOne"]}
       </button>
-    </div>
+    </Fragment>
   );
 
   const deleteButton = (

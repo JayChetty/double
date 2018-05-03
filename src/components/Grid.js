@@ -91,9 +91,11 @@ const createSquares = (number, target, showLevels) => {
 export default function Grid({ number, target, showLevels }) {
   const rects = createSquares(number, target, showLevels);
   return (
-    <svg className="grid" width="80vw" height="80vw" viewBox="0 0 300 300">
+    // <div className="level-container">
+    <svg className="grid" width="80%" viewBox="0 0 300 300">
       {rects}
     </svg>
+    // </div>
   );
 }
 //     <svg className="grid" width="300" height="300">
