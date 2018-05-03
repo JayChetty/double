@@ -135,7 +135,7 @@ export default function Levels({
     return (
       <div className="level-row">
         <svg
-          width="80%"
+          width="60%"
           // height="8vw"
           viewBox={`0 0 ${levelIconSize} ${levelIconSize}`}
         >
@@ -171,7 +171,7 @@ export default function Levels({
       <div className="level-info">{levelInfoEls}</div>
       <div className="level-play-button">
         <svg
-          width="20%"
+          width="15%"
           // height="10vw"
           viewBox={`0 0 ${playButtonSize} ${playButtonSize}`}
           className="play-button"
