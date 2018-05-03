@@ -126,8 +126,8 @@ text {
   align-items: flex-end;
   padding: 5px;
   width: 100%;
-  position: absolute;
-  bottom: 1rem;
+  /* position: absolute;
+  bottom: 1rem; */
   /* margin: 15px; */
   /* width: 100%; */
 }
