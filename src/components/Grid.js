@@ -91,7 +91,7 @@ const createSquares = (number, target, showLevels) => {
 export default function Grid({ number, target, showLevels }) {
   const rects = createSquares(number, target, showLevels);
   return (
-    <svg className="grid" width="300" height="300">
+    <svg className="grid" width="80vw" height="80vw" viewBox="0 0 300 300">
       {rects}
     </svg>
   );

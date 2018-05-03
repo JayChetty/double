@@ -134,7 +134,11 @@ export default function Levels({
     );
     return (
       <div className="level-row">
-        <svg width={levelIconSize} height={levelIconSize}>
+        <svg
+          width="80%"
+          // height="8vw"
+          viewBox={`0 0 ${levelIconSize} ${levelIconSize}`}
+        >
           {icon}
         </svg>
         {/* {info.completedTargets.length}/{info.targets.length} */}
@@ -161,14 +165,15 @@ export default function Levels({
 
   return (
     <section className="level-container">
-      <svg className="grid" width="80vw" height="80vw" viewBox="0 0 300 300">
+      <svg className="grid" width="80%" viewBox="0 0 300 300">
         {rects}
       </svg>
       <div className="level-info">{levelInfoEls}</div>
       <div className="level-play-button">
         <svg
-          width={playButtonSize}
-          height={playButtonSize}
+          width="20%"
+          // height="10vw"
+          viewBox={`0 0 ${playButtonSize} ${playButtonSize}`}
           className="play-button"
           onClick={playLevel}
         >
